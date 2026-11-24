@@ -1,7 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {
@@ -12,6 +11,14 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  experimental: {
+    serverActions: {
+      // Uploads de imagem do painel (as imagens são reduzidas no navegador antes do envio).
+      bodySizeLimit: "6mb",
+    },
+  },
+  serverExternalPackages: ["sharp"],
+  poweredByHeader: false,
 };
 
 export default nextConfig;
