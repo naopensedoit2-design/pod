@@ -147,7 +147,10 @@ export async function processPaidOrder(orderId: number, baseUrl: string) {
   await addEvent(orderId, "email", sent.ok ? `E-mail de confirmação enviado (${sent.provider}).` : `Falha no e-mail de confirmação: ${sent.error}`);
 
   let extra = "";
-  if (settings.integrations.youdrawAutoSubmit && isYouDrawConfigured()) {
+  if (order.paymentProvider === "teste") {
+    // Pagamento simulado: não cria pedido real na YouDraw automaticamente (dá para enviar manualmente pelo painel).
+    extra = `<p>Pedido de teste: não foi enviado automaticamente para a YouDraw.</p>`;
+  } else if (settings.integrations.youdrawAutoSubmit && isYouDrawConfigured()) {
     const res = await submitOrderToYouDraw(orderId, baseUrl, { notify: false });
     extra = res.ok
       ? `<p>Produção: pedido criado na YouDraw (<strong>${res.publicCode}</strong>). ${settings.integrations.youdrawAutoPix ? "O Pix da produção foi gerado no painel." : "Lembre de pagar a produção."}</p>`

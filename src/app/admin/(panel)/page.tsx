@@ -35,7 +35,7 @@ export default async function DashboardPage() {
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
         <Stat label="Vendas hoje" value={formatBRL(stats.revenueToday)} />
         <Stat label="Últimos 7 dias" value={formatBRL(stats.revenue7)} />
-        <Stat label="Últimos 30 dias" value={formatBRL(stats.revenue30)} hint={`${stats.orders30} pedidos pagos`} />
+        <Stat label="Últimos 30 dias" value={formatBRL(stats.revenue30)} hint={`${stats.orders30} ${stats.orders30 === 1 ? "pedido pago" : "pedidos pagos"}`} />
         <Stat label="Ticket médio (30d)" value={formatBRL(stats.avgTicket)} />
         <Stat label="Leads cadastrados" value={String(stats.leads)} hint={`${stats.pendingPayments} pedidos sem pagamento (7d)`} />
       </div>
