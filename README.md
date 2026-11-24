@@ -1,4 +1,8 @@
-# Loja LENTO — e-commerce para print on demand
+# pod
+
+> Ideias que viram produtos.
+
+## Loja LENTO — e-commerce para print on demand
 
 Loja virtual completa no estilo da referência (faixas de promoção com contagem regressiva, selos de desconto, preço “no pix”, página de produto com cores/tamanhos/tabela de medidas, carrinho lateral), com **painel administrativo**, pagamento pela **InfinitePay** e produção/envio automáticos pela **YouDraw**.
 
