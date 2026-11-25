@@ -86,7 +86,7 @@ export function CartDrawer({ pricing }: { pricing: PricingConfig }) {
                 <Link href={`/produto/${l.slug}`} onClick={() => setOpen(false)} className="w-[84px] shrink-0 bg-neutral-100">
                   {l.image && (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={l.image} alt={l.title} className="aspect-[3/4] w-full object-cover" />
+                    <img src={l.image} alt={l.title} className="aspect-[3/4] w-full bg-[#ECE9E4] object-contain" />
                   )}
                 </Link>
                 <div className="flex min-w-0 flex-1 flex-col">

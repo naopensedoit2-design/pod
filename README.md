@@ -90,6 +90,11 @@ Sem InfinitePay configurada e com `PAYMENTS_TEST_MODE=true`, o checkout funciona
 3. **Webhooks**: em **Menu da conta → API → Webhooks**, cadastre a URL `https://SEU-DOMINIO/api/webhooks/youdraw` com os eventos `order.status_changed`, `order.tracking_updated`, `payment.paid` e `payment.expired` (canal `api`). Copie o segredo `whsec_...` para `YOUDRAW_WEBHOOK_SECRET`.
 4. Crie os produtos na YouDraw. Na loja, use **Produtos → Importar da YouDraw**, revise o preço e as fotos e mude o status para **Ativo**.
 
+**Fotos em alta resolução:** os mockups da YouDraw têm só 1000 px, por isso a loja pode usar fotos próprias. Elas ficam em `public/products/` (formato 3:4, 1500×2000) e são ligadas ao produto da YouDraw pelo ID, em `src/data/product-photos.json`. Esse arquivo também pode corrigir a cor das bolinhas (swatches).
+- Ao publicar, `scripts/migrate.mjs` aplica cada versão uma única vez aos produtos já importados. Depois disso, o que for editado no painel não é mais sobrescrito.
+- A importação também já usa essas fotos.
+- Para trocar as fotos, publique arquivos com outro nome, por exemplo numa pasta `v2`, e mude o `version` no JSON.
+
 Pontos de atenção da YouDraw, pela documentação deles:
 - Não há sandbox: todo pedido criado pela API é real, mas só entra em produção depois de pago.
 - Pedidos da API contam no limite mensal do plano. O frete grátis de boas-vindas do painel deles não vale para a API.

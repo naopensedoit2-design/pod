@@ -5,7 +5,7 @@ import { media } from "@/db/schema";
 
 const MAX_BYTES = 8 * 1024 * 1024;
 
-/** Otimiza (WebP, até 1600px) e guarda a imagem no banco. Retorna a URL pública (/media/{id}). */
+/** Otimiza (WebP, até 2400px, alta qualidade) e guarda a imagem no banco. Retorna a URL pública (/media/{id}). */
 export async function storeImage(buffer: Buffer, mime: string, name?: string): Promise<string> {
   if (buffer.length > MAX_BYTES) throw new Error("Imagem muito grande (máx. 8 MB).");
 
@@ -21,8 +21,8 @@ export async function storeImage(buffer: Buffer, mime: string, name?: string): P
   const meta = await image.metadata();
   const isIcon = (meta.width ?? 0) <= 256 && (meta.height ?? 0) <= 256;
   const output = await image
-    .resize({ width: 1600, height: 1600, fit: "inside", withoutEnlargement: true })
-    .webp({ quality: isIcon ? 95 : 82, alphaQuality: 90 })
+    .resize({ width: 2400, height: 2400, fit: "inside", withoutEnlargement: true })
+    .webp({ quality: isIcon ? 95 : 90, alphaQuality: 95, smartSubsample: true })
     .toBuffer({ resolveWithObject: true });
 
   const [row] = await db

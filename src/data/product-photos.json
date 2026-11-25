@@ -1,0 +1,101 @@
+{
+  "_sobre": "Fotos de produto em alta resolução (3:4), geradas a partir das artes de impressão, e cores das bolinhas (swatches) quando a cor informada pela YouDraw não bate com a foto. A chave é o ID do produto na YouDraw. Ao publicar, scripts/migrate.mjs aplica cada versão uma única vez; a importação pela YouDraw também usa estes dados.",
+  "e2354630-30dc-4d79-8aa7-9ea3dd93c2b7": {
+    "version": "e01-v1",
+    "images": [
+      {
+        "url": "/products/e01/v1/e01-classic-offwhite-1-costas.webp",
+        "color": "Off-White",
+        "alt": "Camiseta E01 Social Club Off-White — costas"
+      },
+      {
+        "url": "/products/e01/v1/e01-classic-offwhite-2-frente.webp",
+        "color": "Off-White",
+        "alt": "Camiseta E01 Social Club Off-White — frente"
+      },
+      {
+        "url": "/products/e01/v1/e01-classic-offwhite-3-detalhe-costas.webp",
+        "color": "Off-White",
+        "alt": "Camiseta E01 Social Club Off-White — detalhe da estampa das costas"
+      },
+      {
+        "url": "/products/e01/v1/e01-classic-offwhite-4-detalhe-frente.webp",
+        "color": "Off-White",
+        "alt": "Camiseta E01 Social Club Off-White — detalhe do logo do peito"
+      }
+    ]
+  },
+  "eb53a898-6868-4f0b-b2ad-5958ef8b6567": {
+    "version": "e01-v1",
+    "images": [
+      {
+        "url": "/products/e01/v1/e01-suedine-offwhite-1-costas.webp",
+        "color": "Off-White",
+        "alt": "Camiseta E01 Social Club Off-White — costas"
+      },
+      {
+        "url": "/products/e01/v1/e01-suedine-offwhite-2-frente.webp",
+        "color": "Off-White",
+        "alt": "Camiseta E01 Social Club Off-White — frente"
+      },
+      {
+        "url": "/products/e01/v1/e01-suedine-offwhite-3-detalhe-costas.webp",
+        "color": "Off-White",
+        "alt": "Camiseta E01 Social Club Off-White — detalhe da estampa das costas"
+      },
+      {
+        "url": "/products/e01/v1/e01-suedine-offwhite-4-detalhe-frente.webp",
+        "color": "Off-White",
+        "alt": "Camiseta E01 Social Club Off-White — detalhe do logo do peito"
+      }
+    ]
+  },
+  "f92df304-66cf-4aeb-b40d-fd32b007c17f": {
+    "version": "e01-v1",
+    "images": [
+      {
+        "url": "/products/e01/v1/e01-suedine-preto-1-costas.webp",
+        "color": "Preto",
+        "alt": "Camiseta E01 Social Club Preta — costas"
+      },
+      {
+        "url": "/products/e01/v1/e01-suedine-preto-2-frente.webp",
+        "color": "Preto",
+        "alt": "Camiseta E01 Social Club Preta — frente"
+      },
+      {
+        "url": "/products/e01/v1/e01-suedine-preto-3-detalhe-costas.webp",
+        "color": "Preto",
+        "alt": "Camiseta E01 Social Club Preta — detalhe da estampa das costas"
+      },
+      {
+        "url": "/products/e01/v1/e01-suedine-preto-4-detalhe-frente.webp",
+        "color": "Preto",
+        "alt": "Camiseta E01 Social Club Preta — detalhe do logo do peito"
+      },
+      {
+        "url": "/products/e01/v1/e01-suedine-verde-militar-1-costas.webp",
+        "color": "Verde Militar",
+        "alt": "Camiseta E01 Social Club Verde Militar — costas"
+      },
+      {
+        "url": "/products/e01/v1/e01-suedine-verde-militar-2-frente.webp",
+        "color": "Verde Militar",
+        "alt": "Camiseta E01 Social Club Verde Militar — frente"
+      },
+      {
+        "url": "/products/e01/v1/e01-suedine-verde-militar-3-detalhe-costas.webp",
+        "color": "Verde Militar",
+        "alt": "Camiseta E01 Social Club Verde Militar — detalhe da estampa das costas"
+      },
+      {
+        "url": "/products/e01/v1/e01-suedine-verde-militar-4-detalhe-frente.webp",
+        "color": "Verde Militar",
+        "alt": "Camiseta E01 Social Club Verde Militar — detalhe do logo do peito"
+      }
+    ],
+    "colors": {
+      "Verde Militar": "#3B4229"
+    }
+  }
+}

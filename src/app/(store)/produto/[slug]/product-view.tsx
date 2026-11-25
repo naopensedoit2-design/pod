@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useCart } from "@/components/store/cart-store";
 import { ProductBadges } from "@/components/store/product-card";
+import { ProductImage } from "@/components/store/product-image";
 import { installmentsFor, priceLines, type PricingConfig } from "@/components/store/pricing";
 import { track } from "@/components/store/tracking";
 import type { ProductDetail } from "@/lib/catalog";
@@ -75,9 +76,8 @@ export function ProductView({ product, colors, sizes, pricing, sizeChart }: Prop
       <div>
         <div className="no-scrollbar flex snap-x snap-mandatory overflow-x-auto lg:hidden">
           {images.map((img, i) => (
-            <div key={img.id} className="relative w-full shrink-0 snap-start">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={img.url} alt={img.alt || product.title} loading={i === 0 ? "eager" : "lazy"} className="aspect-[3/4] w-full bg-[#ECE9E4] object-cover" />
+            <div key={img.id} className="relative aspect-[3/4] w-full shrink-0 snap-start bg-[#ECE9E4]">
+              <ProductImage src={img.url} alt={img.alt || product.title} sizes="100vw" quality={90} eager={i === 0} />
               <span className="absolute right-3 bottom-3 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-medium tabular-nums">
                 {i + 1}/{images.length}
               </span>
@@ -86,8 +86,9 @@ export function ProductView({ product, colors, sizes, pricing, sizeChart }: Prop
         </div>
         <div className="hidden grid-cols-2 gap-1.5 lg:grid">
           {images.map((img, i) => (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img key={img.id} src={img.url} alt={img.alt || product.title} loading={i < 2 ? "eager" : "lazy"} className="aspect-[3/4] w-full bg-[#ECE9E4] object-cover" />
+            <div key={img.id} className="relative aspect-[3/4] w-full bg-[#ECE9E4]">
+              <ProductImage src={img.url} alt={img.alt || product.title} sizes="(min-width: 1024px) 32vw, 100vw" quality={90} eager={i < 2} />
+            </div>
           ))}
         </div>
       </div>

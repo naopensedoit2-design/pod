@@ -2,6 +2,10 @@ import Link from "next/link";
 import type { ProductCard as Card } from "@/lib/catalog";
 import { discountPercent, formatBRL } from "@/lib/format";
 import { priceLines, type PricingConfig } from "./pricing";
+import { ProductImage } from "./product-image";
+
+/** Grades de produto: 2 colunas no celular, 4 a partir de 1024px. */
+const CARD_SIZES = "(min-width: 1024px) 25vw, 50vw";
 
 export function Badge({ children, tone = "black" }: { children: React.ReactNode; tone?: "black" | "brand" | "white" }) {
   const tones = {
@@ -39,22 +43,21 @@ export function ProductCard({ product, pricing, priority = false }: { product: C
     <Link href={`/produto/${product.slug}`} className="group block">
       <div className="relative aspect-[3/4] overflow-hidden bg-[#ECE9E4]">
         {product.image && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <ProductImage
             src={product.image}
             alt={product.title}
-            loading={priority ? "eager" : "lazy"}
-            className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]"
+            sizes={CARD_SIZES}
+            eager={priority}
+            className="transition duration-500 group-hover:scale-[1.02]"
           />
         )}
         {product.image2 && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <ProductImage
             src={product.image2}
             alt=""
-            aria-hidden
-            loading="lazy"
-            className="absolute inset-0 h-full w-full object-cover opacity-0 transition duration-500 group-hover:opacity-100"
+            decorative
+            sizes={CARD_SIZES}
+            className="bg-[#ECE9E4] opacity-0 transition duration-500 group-hover:opacity-100"
           />
         )}
         <div className="absolute top-3 left-3">

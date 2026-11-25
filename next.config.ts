@@ -19,6 +19,18 @@ const nextConfig: NextConfig = {
   },
   serverExternalPackages: ["sharp"],
   poweredByHeader: false,
+  images: {
+    // Fotos de produto: 75 nas grades, 90 na página do produto.
+    qualities: [75, 90],
+    // As fotos não mudam de conteúdo no mesmo endereço (versão no caminho ou id novo).
+    minimumCacheTTL: 2678400,
+    localPatterns: [
+      { pathname: "/media/**", search: "" },
+      { pathname: "/products/**", search: "" },
+      { pathname: "/demo/**", search: "" },
+    ],
+    remotePatterns: [{ protocol: "https", hostname: "cdn.youdraw.com.br", pathname: "/**", search: "" }],
+  },
 };
 
 export default nextConfig;

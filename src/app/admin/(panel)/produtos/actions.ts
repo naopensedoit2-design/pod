@@ -5,10 +5,11 @@ import { refresh, updateTag } from "next/cache";
 import { and, eq, inArray, ne, notInArray } from "drizzle-orm";
 import { z } from "zod";
 import { db } from "@/db";
-import { productImages, products, variants } from "@/db/schema";
+import { dataPatches, productImages, products, variants } from "@/db/schema";
 import { requireAdmin } from "@/lib/auth";
 import { slugify } from "@/lib/format";
 import { importRemoteImage } from "@/lib/media";
+import { productPhotosFor } from "@/lib/product-photos";
 import { getSettingsFresh } from "@/lib/settings";
 import { youdraw, YouDrawError, type YdProduct } from "@/lib/youdraw";
 
@@ -252,11 +253,14 @@ export async function importYouDrawProductAction(ydId: string): Promise<{ ok: fa
     })
     .returning({ id: products.id });
 
+  // Fotos em alta (e cores das bolinhas) já preparadas para este produto: src/data/product-photos.json.
+  const photos = productPhotosFor(yd.id);
+
   await db.insert(variants).values(
     vs.map((v, i) => ({
       productId: prod.id,
       option1: v.option1,
-      option1Hex: v.option1Hex,
+      option1Hex: photos?.colors?.[v.option1] ?? v.option1Hex,
       option2: v.option2,
       sku: v.sku,
       ydSku: v.ydSku,
@@ -265,6 +269,15 @@ export async function importYouDrawProductAction(ydId: string): Promise<{ ok: fa
       sortOrder: i,
     })),
   );
+
+  if (photos) {
+    await db.insert(productImages).values(
+      photos.images.map((img, i) => ({ productId: prod.id, url: img.url, alt: img.alt, color: img.color, sortOrder: i })),
+    );
+    await db.insert(dataPatches).values({ id: photos.patchId }).onConflictDoNothing();
+    updateTag("products");
+    redirect(`/admin/produtos/${prod.id}?importado=1`);
+  }
 
   // Imagens: uma leva por cor (mockups da variante) + fotos gerais do produto.
   const queue: { url: string; color: string }[] = [];

@@ -312,6 +312,12 @@ export const subscribers = pgTable("subscribers", {
   createdAt: createdAt(),
 });
 
+/** Ajustes de conteúdo aplicados uma única vez (ex.: fotos de produto em src/data/product-photos.json). */
+export const dataPatches = pgTable("data_patches", {
+  id: text("id").primaryKey(),
+  appliedAt: timestamp("applied_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
 export const categoriesRelations = relations(categories, ({ many }) => ({
   products: many(products),
 }));

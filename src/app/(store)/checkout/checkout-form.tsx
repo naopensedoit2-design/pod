@@ -320,7 +320,7 @@ export function CheckoutForm({ pricing, testMode }: { pricing: PricingConfig; te
                 <div className="relative w-14 shrink-0 bg-neutral-100">
                   {l.image && (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={l.image} alt="" className="aspect-[3/4] w-full object-cover" />
+                    <img src={l.image} alt="" className="aspect-[3/4] w-full bg-[#ECE9E4] object-contain" />
                   )}
                   <span className="absolute -top-2 -right-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-black px-1 text-[10px] font-bold text-white">
                     {l.quantity}

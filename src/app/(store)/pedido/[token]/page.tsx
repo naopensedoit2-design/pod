@@ -108,7 +108,7 @@ async function OrderContent({ params }: { params: PageProps<"/pedido/[token]">["
               <div className="w-16 shrink-0 bg-neutral-100">
                 {it.imageUrl && (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={it.imageUrl} alt="" className="aspect-[3/4] w-full object-cover" />
+                  <img src={it.imageUrl} alt="" className="aspect-[3/4] w-full bg-[#ECE9E4] object-contain" />
                 )}
               </div>
               <div className="flex-1 text-sm">
