@@ -61,7 +61,7 @@ Sem InfinitePay configurada e com `PAYMENTS_TEST_MODE=true`, o checkout funciona
 1. Suba o código para um repositório no GitHub.
 2. Na Vercel: **Add New → Project** e importe o repositório.
 3. Em **Storage**, crie um banco **Neon** (Postgres) e conecte ao projeto. Ele cria a variável `DATABASE_URL`.
-4. Em **Settings → Environment Variables**, cadastre as variáveis do `.env.example` (no mínimo `AUTH_SECRET`, `ADMIN_EMAIL`, `ADMIN_PASSWORD` e `NEXT_PUBLIC_SITE_URL`).
+4. Em **Settings → Environment Variables**, cadastre as variáveis do `.env.example` (no mínimo `AUTH_SECRET`, `ADMIN_EMAIL` e `ADMIN_PASSWORD`; `NEXT_PUBLIC_SITE_URL` só quando tiver domínio próprio — sem ele a loja usa o endereço `.vercel.app`).
 5. Faça o deploy. O comando de build (`npm run build`) aplica as migrações e, num banco vazio, cria os dados iniciais.
 6. Em **Settings → Domains**, conecte o seu domínio e atualize `NEXT_PUBLIC_SITE_URL`.
 7. Gere um `CRON_SECRET`. A rotina diária (`vercel.json`) usa esse valor; no plano Hobby ela roda uma vez por dia.
@@ -96,6 +96,15 @@ Pontos de atenção da YouDraw, pela documentação deles:
 - Pela API, a produção só é paga por Pix, e só quando liberado pela YouDraw. Saldo e cartão não estão disponíveis.
 
 ---
+
+## E-mails sem domínio próprio (Gmail)
+
+1. Crie um Gmail só para a loja e ative a **verificação em duas etapas**.
+2. Em [myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords), crie uma **senha de app** (16 letras).
+3. Na Vercel, cadastre `SMTP_USER` (o Gmail) e `SMTP_PASS` (a senha de app, marcada como *Sensitive*) e publique de novo.
+4. Teste em **Configurações → Integrações → Enviar e-mail de teste**.
+
+O Gmail envia até ~500 e-mails por dia — suficiente para validar a ideia. Com domínio próprio, troque para o Resend (`RESEND_API_KEY` + `EMAIL_FROM`), que entrega melhor e mostra o e-mail com o nome da loja.
 
 ## Trocar de marca / testar outra ideia
 

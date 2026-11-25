@@ -10,6 +10,10 @@ config({ path: [".env.local", ".env"], quiet: true });
 
 const url = process.env.DATABASE_URL;
 if (!url) {
+  if (process.env.VERCEL) {
+    console.error("[migrate] DATABASE_URL não definida. Conecte um banco Postgres (Vercel → Storage → Neon) e publique de novo.");
+    process.exit(1);
+  }
   console.warn("[migrate] DATABASE_URL não definida — pulando migrações.");
   process.exit(0);
 }

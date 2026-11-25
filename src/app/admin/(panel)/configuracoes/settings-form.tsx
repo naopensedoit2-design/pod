@@ -341,7 +341,9 @@ export function SettingsForm({ initial, env, baseUrl }: { initial: StoreSettings
             </div>
           </Card>
           <Card title="E-mails">
-            <p className="mb-3 text-sm">{env.email ? "✅ Envio configurado." : "⚪ Configure RESEND_API_KEY (recomendado) ou SMTP_URL, e EMAIL_FROM."}</p>
+            <p className="mb-3 text-sm">{env.email
+                ? "✅ Envio configurado."
+                : "⚪ Sem domínio: use um Gmail da loja (SMTP_USER + SMTP_PASS com senha de app). Com domínio: RESEND_API_KEY + EMAIL_FROM."}</p>
             <ActionButton action={testEmailAction}>Enviar e-mail de teste</ActionButton>
           </Card>
         </div>

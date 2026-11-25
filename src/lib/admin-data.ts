@@ -72,7 +72,7 @@ export function getSetupStatus(settings: StoreSettings) {
     { label: "Pagamentos (InfinitePay)", ok: Boolean(ip.handle || ip.apiKey), detail: ip.apiKey ? "Handle + API Key (Pix com desconto e parcelas sem juros)" : ip.handle ? "Só handle (sem desconto no Pix)" : "Defina a InfiniteTag em Configurações" },
     { label: "Produção (YouDraw API)", ok: isYouDrawConfigured(), detail: isYouDrawConfigured() ? "Chave configurada" : "Defina YOUDRAW_API_KEY" },
     { label: "Webhook da YouDraw", ok: Boolean(process.env.YOUDRAW_WEBHOOK_SECRET), detail: process.env.YOUDRAW_WEBHOOK_SECRET ? "Segredo configurado" : "Defina YOUDRAW_WEBHOOK_SECRET" },
-    { label: "E-mails transacionais", ok: isEmailConfigured(), detail: isEmailConfigured() ? "Envio ativo" : "Defina RESEND_API_KEY ou SMTP_URL" },
+    { label: "E-mails transacionais", ok: isEmailConfigured(), detail: isEmailConfigured() ? "Envio ativo" : "Defina SMTP_USER + SMTP_PASS (Gmail) ou RESEND_API_KEY" },
     { label: "Dados da empresa no rodapé", ok: Boolean(settings.company.legalName && settings.company.document), detail: "Razão social e CNPJ/CPF (obrigatório por lei)" },
     { label: "WhatsApp de atendimento", ok: Boolean(settings.company.whatsapp), detail: "Ativa o botão Ajuda" },
   ];

@@ -40,6 +40,7 @@ export async function testEmailAction(): Promise<{ ok: boolean; message: string 
     subject: `Teste de e-mail — ${settings.brand.name}`,
     html: `<p>Se você recebeu esta mensagem, os e-mails da loja estão funcionando. ✦</p>`,
   });
-  if (!isEmailConfigured()) return { ok: false, message: "Nenhum provedor configurado (RESEND_API_KEY ou SMTP_URL): o e-mail só foi registrado no log." };
+  if (!isEmailConfigured())
+    return { ok: false, message: "Nenhum provedor configurado (SMTP_USER + SMTP_PASS do Gmail, ou RESEND_API_KEY): o e-mail só foi registrado no log." };
   return r.ok ? { ok: true, message: `E-mail de teste enviado para ${to}.` } : { ok: false, message: r.error ?? "Falha no envio." };
 }
