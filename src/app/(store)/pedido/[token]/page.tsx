@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { orders } from "@/db/schema";
+import { isEmailConfigured } from "@/lib/email";
 import { isPaymentTestMode } from "@/lib/infinitepay";
 import { getSettings } from "@/lib/settings";
 import { cn, formatBRL, formatCep, formatDateTime } from "@/lib/format";
@@ -42,7 +43,9 @@ async function OrderContent({ params }: { params: PageProps<"/pedido/[token]">["
         {canceled
           ? "Este pedido foi cancelado. Se tiver dúvidas, fale com a gente."
           : paid
-            ? `Pagamento aprovado. Enviamos a confirmação para ${order.email}. Sua peça é produzida sob demanda e você recebe o rastreio por e-mail assim que ela for enviada.`
+            ? isEmailConfigured()
+              ? `Pagamento aprovado. Enviamos a confirmação para ${order.email}. Sua peça é produzida sob demanda e você recebe o rastreio por e-mail assim que ela for enviada.`
+              : `Pagamento aprovado. Sua peça é produzida sob demanda. Guarde o número do pedido (#${order.number}): com ele e seu e-mail você acompanha tudo em “Rastreie seu pedido”.`
             : "Assim que o pagamento for aprovado, esta página é atualizada automaticamente."}
       </p>
 
