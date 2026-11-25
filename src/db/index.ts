@@ -9,9 +9,12 @@ function createClient() {
   return postgres(url, {
     // Compatível com poolers (Neon/Supabase/pgbouncer).
     prepare: false,
-    max: process.env.VERCEL ? 2 : 10,
+    // Na Vercel a função congela entre requisições. Com mais de uma conexão, uma conexão aberta
+    // "em segundo plano" pode ficar pela metade e estourar CONNECT_TIMEOUT no próximo acesso.
+    // Uma única conexão (as consultas paralelas são enfileiradas nela) evita isso.
+    max: process.env.VERCEL ? 1 : 10,
     idle_timeout: 20,
-    connect_timeout: 15,
+    connect_timeout: 10,
   });
 }
 
