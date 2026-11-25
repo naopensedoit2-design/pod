@@ -54,6 +54,35 @@ Artes enviadas:
 
 A API informa o mesmo custo com 2 lados e com só a frente. As costas não têm acréscimo, e G1/G2/XG custam o mesmo que os outros tamanhos.
 
+### Versão creme, para camisetas escuras
+
+As artes são as mesmas, mas o azul foi trocado por creme `#F1E9D8`:
+
+- `E01-creme-frente-600dpi.png`
+- `E01-creme-costas-600dpi.png`
+
+Essa versão foi aprovada só na base Suedine, nas cores Preto e Verde Militar. A prévia está em `previa-preta-youdraw.jpg`.
+
+| Item | Valor |
+| --- | --- |
+| Artes enviadas (IDs) | frente `72913` · costas `72914` |
+| Produto | Camiseta E01 Social Club — Suedine Preto e Verde Militar |
+| ID do produto | `f92df304-66cf-4aeb-b40d-fd32b007c17f` |
+| Custo de produção | R$ 41,57 em todos os tamanhos e nas duas cores |
+| `placement` da frente | x 0.5553 · y 0.2361 · width 0.1124 · height 0.0480 |
+| `placement` das costas | x 0.3297 · y 0.1824 · width 0.3519 · height 0.2549 |
+
+SKUs:
+
+| Tamanho | Preto | Verde Militar |
+| --- | --- | --- |
+| PP | `Ye1OVNX7` | `PWhPgvsM` |
+| P | `cVl9lL04` | `Nx55uaeM` |
+| M | `WfgiVs5D` | `qkowDXzX` |
+| G | `2GQYQaOR` | `TuRmAM87` |
+| GG | `0YYyFioh` | `2fkS9aNA` |
+| XG | `LTmoQgl1` | `m5g29Zu7` |
+
 ### Frete da YouDraw
 
 Serviço "Frete Expresso – 2 a 10 dias úteis". O valor é igual nas duas bases. Cada peça a mais no pedido soma R$ 1,50.
