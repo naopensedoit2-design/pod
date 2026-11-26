@@ -59,6 +59,11 @@ async function render(svg, out, { trim = true, alphaThreshold = 128 } = {}) {
       if (data[i] && trim) { if (x < x1) x1 = x; if (x > x2) x2 = x; if (y < y1) y1 = y; if (y > y2) y2 = y; }
     }
   }
+  // Conteúdo encostado na borda do canvas quase sempre é corte (no Drop 001, "CAFÉ … Nº 001" virou "AFÉ … Nº 00").
+  if (x2 >= 0 && (x1 === 0 || y1 === 0 || x2 === info.width - 1 || y2 === info.height - 1)) {
+    const lados = [x1 === 0 && "esquerda", y1 === 0 && "topo", x2 === info.width - 1 && "direita", y2 === info.height - 1 && "base"].filter(Boolean).join(", ");
+    console.warn(`ATENÇÃO ${path.basename(out)}: a arte encosta na borda do canvas (${lados}). Algo pode ter sido cortado — aumente o canvas e confira.`);
+  }
   let s = sharp(data, { raw: { width: info.width, height: info.height, channels: 4 } });
   if (trim && x2 >= 0) {
     const buf = await s.png().toBuffer();

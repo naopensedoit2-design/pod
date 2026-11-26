@@ -58,6 +58,11 @@ Referência é aula de como fazer, não motivo para repetir.
   - Sustenta uma imagem forte, e não só um texto?
   - Quem não pegar a referência ainda acha bonito?
 - Num drop, varie territórios e sistemas visuais. **No máximo duas peças com o mesmo esqueleto de composição.**
+- Desenhe o drop como conjunto antes da primeira arte:
+  - **Mapa de peças.** Posição, escala e esqueleto de cada uma. Use barra, gigante, só costas, deslocado.
+  - **Quadro de piadas.** Uma por peça, para nada se repetir. No Drop 001, "chegar tarde, sair mais tarde" apareceu 4 vezes e "sem pressa" 5.
+  - **Orçamento de texto.** No máximo 2 textos por face.
+  - **Frente.** Acrescenta uma ideia ou fica lisa: miniatura das costas no peito não é ideia.
 
 ### 4. Direção de arte → `direcao.md`
 
@@ -83,6 +88,7 @@ Depois, **revise o plano contra `references/anti-generico.md`**. Se algum item f
   ```bash
   node design/tools/preview.js --front f.png --back c.png --base 40 --color Off-White --zoom --out previa.jpg
   ```
+- **Portão de comparação.** Monte a folha referência × esboço com `compare.py`. Se motivo, layout ou paleta coincidem com um pin, a peça volta para o conceito com a pergunta "qual é a jogada, e qual é o nosso objeto?". No Drop 001, seis peças eram pins com o nome trocado.
 - Leve as versões ao diretor de arte (etapa 7) e escolha uma. Ao usuário, mostre só o que passou na crítica, com a sua recomendação.
 
 ### 6. Execução
@@ -104,7 +110,11 @@ Depois, **revise o plano contra `references/anti-generico.md`**. Se algum item f
 
 ### 8. Produção
 
-- **QA.** `python3 design/tools/qa.py design/<projeto>/*.png`
+- **QA.** `python3 design/tools/qa.py design/<projeto>/*.png`. Leia os avisos: `render()` avisa quando a arte encosta na borda do canvas (corte), e o QA lista ilhas que podem ser pontuação. Não use `--fix` sem olhar o que ele vai apagar.
+- **Leitura letra por letra.** Abra cada face a 100% e leia cada palavra. O QA não lê texto. No Drop 001 passaram assim:
+  - "AFÉ DO CLUBE · LOTE Nº 00" (linha cortada);
+  - "Lentà" (sobra da perna do cavalo virou acento);
+  - "EST 2026" (o ponto foi apagado como ilha).
 - **Aprovação.** Mostre ao usuário e espere o "pode criar" antes de subir arte ou criar produto na YouDraw. Nunca crie pedidos nem cobranças.
 - **YouDraw.** `node design/tools/produce.js design/<projeto>/drop.json --create`. Depois confira os mockups da própria YouDraw com `get <id>` (`media.status` precisa estar `ready`).
 - **Fotos da loja.** `python3 design/tools/photos.py job.json`, converta para WebP em `public/products/<projeto>/` e registre no manifesto `src/data/product-photos.json`.
@@ -113,7 +123,7 @@ Depois, **revise o plano contra `references/anti-generico.md`**. Se algum item f
 ## Princípios, e por quê
 
 - **Um herói por peça.** O olho precisa saber para onde ir. Duas coisas gritando ao mesmo tempo viram ruído, e ruído parece amador.
-- **Imagem com ofício.** O que dá valor percebido a uma estampa de R$ 150 é a sensação de horas de trabalho: luz, volume, detalhe que recompensa quem chega perto.
+- **Imagem com ofício.** O que dá valor percebido a uma estampa de R$ 150 é a sensação de horas de trabalho: luz, volume, detalhe que recompensa quem chega perto. A imagem define o nível antes da letra: escolha e baixe a fonte da imagem antes de abrir o arquivo da arte. "Linogravura" só se for linóleo de verdade ou gravura em domínio público, nunca vetor com manchas.
 - **Letra desenhada, não digitada.** A fonte é o ponto de partida. Floreio, ligação e encaixe com a imagem são o que a tornam única.
 - **Escala com coragem.** Contraste de tamanho (muito grande × muito pequeno) cria tensão. Tudo médio é morno.
 - **Menos acessório.** Antes de fechar, tire um elemento (o conselho de Chanel). Microtexto só quando diz algo que a imagem não diz.

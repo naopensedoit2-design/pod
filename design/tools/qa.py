@@ -50,6 +50,11 @@ for f in files:
     }
     if dpi < 290:
         msg['alerta'] = 'resolução abaixo de 300 DPI'
+    if tiny:
+        # lista as ilhas com posição em mm: pontos finais, pingos de "i" e acentos pequenos caem aqui
+        objs = ndi.find_objects(lab)
+        msg['ilhas_em_mm'] = [[round(objs[i][1].start / px_mm, 1), round(objs[i][0].start / px_mm, 1)] for i in np.nonzero(sizes < island_px)[0][:12]]
+        msg['aviso'] = 'confira as ilhas a 100%: podem ser pontuação ou acento (o --fix apagaria). Prefira aumentar o texto.'
     if a.fix and (tiny or tinyh or partial):
         keep = np.isin(lab, np.nonzero(sizes >= island_px)[0] + 1)
         small_holes = np.isin(hl, np.nonzero(hsz < hole_px)[0] + 1)
