@@ -21,7 +21,7 @@ No Drop 001 as ideias foram aprovadas e a execução saiu genérica. Os motivos 
 
 ## Processo
 
-Siga as etapas em ordem, numa pasta `design/<projeto>/`. Cada etapa deixa um arquivo, para que outra sessão (ou outra pessoa) continue de onde parou. Antes de tudo, rode `bash design/tools/setup.sh`.
+Siga as etapas em ordem, numa pasta `design/<projeto>/`. Cada etapa deixa um arquivo, para que outra sessão (ou outra pessoa) continue de onde parou. Há modelos para `brief.md`, `conceitos.md` e `direcao.md` em `templates/`. Antes de tudo, rode `bash design/tools/setup.sh`.
 
 ### 1. Briefing → `brief.md`
 
