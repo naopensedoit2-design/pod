@@ -503,5 +503,105 @@
         "alt": "Camiseta Interlúdio Preto — detalhe da estampa do peito"
       }
     ]
+  },
+  "02c4e611-cd50-40fe-89ea-62caf46de506": {
+    "version": "d001-v1",
+    "images": [
+      {
+        "url": "/products/d001/v1/marcha-lenta-40-off-white-1-costas.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Marcha Lenta Off-White — costas"
+      },
+      {
+        "url": "/products/d001/v1/marcha-lenta-40-off-white-2-frente.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Marcha Lenta Off-White — frente"
+      },
+      {
+        "url": "/products/d001/v1/marcha-lenta-40-off-white-3-detalhe-costas.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Marcha Lenta Off-White — detalhe da estampa das costas"
+      },
+      {
+        "url": "/products/d001/v1/marcha-lenta-40-off-white-4-detalhe-frente.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Marcha Lenta Off-White — detalhe da estampa do peito"
+      }
+    ]
+  },
+  "111f358f-b602-4da8-872f-cbde42fd7d84": {
+    "version": "d001-v1",
+    "images": [
+      {
+        "url": "/products/d001/v1/marcha-lenta-34-off-white-1-costas.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Marcha Lenta Off-White — costas"
+      },
+      {
+        "url": "/products/d001/v1/marcha-lenta-34-off-white-2-frente.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Marcha Lenta Off-White — frente"
+      },
+      {
+        "url": "/products/d001/v1/marcha-lenta-34-off-white-3-detalhe-costas.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Marcha Lenta Off-White — detalhe da estampa das costas"
+      },
+      {
+        "url": "/products/d001/v1/marcha-lenta-34-off-white-4-detalhe-frente.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Marcha Lenta Off-White — detalhe da estampa do peito"
+      }
+    ]
+  },
+  "34ff029b-adec-4ae1-b8bc-ea03e10d3493": {
+    "version": "d001-v1",
+    "images": [
+      {
+        "url": "/products/d001/v1/classico-members-only-40-off-white-1-costas.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Clássico Members Only Off-White — costas"
+      },
+      {
+        "url": "/products/d001/v1/classico-members-only-40-off-white-2-frente.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Clássico Members Only Off-White — frente"
+      },
+      {
+        "url": "/products/d001/v1/classico-members-only-40-off-white-3-detalhe-costas.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Clássico Members Only Off-White — detalhe da estampa das costas"
+      },
+      {
+        "url": "/products/d001/v1/classico-members-only-40-off-white-4-detalhe-frente.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Clássico Members Only Off-White — detalhe da estampa do peito"
+      }
+    ]
+  },
+  "1ef83d1b-9b11-49e4-9a91-e93c45bf2b17": {
+    "version": "d001-v1",
+    "images": [
+      {
+        "url": "/products/d001/v1/classico-members-only-34-off-white-1-costas.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Clássico Members Only Off-White — costas"
+      },
+      {
+        "url": "/products/d001/v1/classico-members-only-34-off-white-2-frente.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Clássico Members Only Off-White — frente"
+      },
+      {
+        "url": "/products/d001/v1/classico-members-only-34-off-white-3-detalhe-costas.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Clássico Members Only Off-White — detalhe da estampa das costas"
+      },
+      {
+        "url": "/products/d001/v1/classico-members-only-34-off-white-4-detalhe-frente.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Clássico Members Only Off-White — detalhe da estampa do peito"
+      }
+    ]
   }
 }

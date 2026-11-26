@@ -2,7 +2,13 @@
 
 Estampas do primeiro drop. Técnica: DTF. Arquivos de impressão: PNG transparente a 300 DPI, sem semitransparência. Todos passaram por um controle de impressão: sem pontinhos ou furos menores que 0,3 mm e com traços de pelo menos 0,4 mm, exceto pontas de caligrafia.
 
-As ilustrações em linogravura (coco, cadeiras, caju, maracujá, manga e fruteira) foram desenhadas em vetor para este drop. O ramo de café é a gravura de *Köhler's Medizinal-Pflanzen* (1887, domínio público), recortada e com os frutos recoloridos. Fontes: Pinyon Script, Yesteryear, Instrument Serif e Archivo, todas com licença OFL (uso comercial liberado).
+As ilustrações em linogravura (coco, cadeiras, caju, maracujá, manga e fruteira) foram desenhadas em vetor para este drop. As demais imagens vêm de obras em domínio público:
+
+- **Café Torra Lenta (D04):** ramo de café de *Köhler's Medizinal-Pflanzen* (1887), recortado e com os frutos recoloridos.
+- **Marcha Lenta (D08):** silhuetas de *The Horse in Motion*, de Eadweard Muybridge (1878), recortadas quadro a quadro.
+- **Clássico Members Only (D09):** o cavalo de *Whistlejacket*, de George Stubbs (1762), recortado do fundo original.
+
+Fontes: Pinyon Script, Yesteryear, Instrument Serif e Archivo, todas com licença OFL (uso comercial liberado).
 
 Prévias: `previa-classic.jpg` e `previa-suedine.jpg`.
 
@@ -90,6 +96,28 @@ Arquivos: `D07-manga-frente.png` (frente) e `D07-manga-costas.png` (costas). Art
 | Oversized Suedine | Off-White | `8d919922-97db-4832-b1b6-f750476dec2b` | R$ 41,57 | PP `wyznlEL9` · P `7PCsA2Xu` · M `7jqdyj3c` · G `qvQy2Rla` · GG `2866Zy7v` · XG `N4vo4wiY` |
 
 `placement` Classic — frente: x 0.5565 · y 0.2367 · w 0.0962 · h 0.0223; costas: x 0.3619 · y 0.1659 · w 0.2762 · h 0.2299
+
+### D08 — Camiseta Marcha Lenta
+
+Arquivos: `D08-marcha-frente.png` (frente) e `D08-marcha-costas.png` (costas). Artes na YouDraw: frente `74429`, costas `74430`.
+
+| Base | Cor | ID do produto | Custo | SKUs |
+| --- | --- | --- | --- | --- |
+| Oversized Classic | Off-White | `02c4e611-cd50-40fe-89ea-62caf46de506` | R$ 30,63 | P `bkBh0dJi` · M `d1CAtQBj` · G `o01DAkMG` · GG `GGoLEL0e` · G1 `N2SHO9ry` · G2 `N6fTRiRg` |
+| Oversized Suedine | Off-White | `111f358f-b602-4da8-872f-cbde42fd7d84` | R$ 41,57 | PP `mypxRami` · P `mDRLXd5m` · M `TbDUDNyn` · G `YcAvN9Uf` · GG `usreBpeN` · XG `dyt83esb` |
+
+`placement` Classic — frente: x 0.5492 · y 0.2367 · w 0.1108 · h 0.0238; costas: x 0.3544 · y 0.1659 · w 0.2911 · h 0.1705
+
+### D09 — Camiseta Clássico Members Only
+
+Arquivos: `D09-classico-frente.png` (frente) e `D09-classico-costas.png` (costas). Artes na YouDraw: frente `74431`, costas `74432`.
+
+| Base | Cor | ID do produto | Custo | SKUs |
+| --- | --- | --- | --- | --- |
+| Oversized Classic | Off-White | `34ff029b-adec-4ae1-b8bc-ea03e10d3493` | R$ 30,63 | P `PNXYHNIs` · M `WT68OaS3` · G `TJmVERrK` · GG `9TYd8s5K` · G1 `TP779rXk` · G2 `Bsf3lD8h` |
+| Oversized Suedine | Off-White | `1ef83d1b-9b11-49e4-9a91-e93c45bf2b17` | R$ 41,57 | PP `eaGF7TyJ` · P `wCCU0kY0` · M `eKea4ayW` · G `eOSANQmW` · GG `9SZG0Zel` · XG `1gTWCFfW` |
+
+`placement` Classic — frente: x 0.5562 · y 0.2367 · w 0.0968 · h 0.0231; costas: x 0.359 · y 0.1659 · w 0.282 · h 0.2737
 
 ### D10 — Camiseta Interlúdio
 
