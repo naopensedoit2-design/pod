@@ -97,5 +97,411 @@
     "colors": {
       "Verde Militar": "#3B4229"
     }
+  },
+  "2f0ac0ff-4c63-40e4-a851-7539fe2bc9f2": {
+    "version": "d001-v1",
+    "images": [
+      {
+        "url": "/products/d001/v1/sombra-e-agua-fresca-40-off-white-1-costas.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Sombra e Água Fresca Off-White — costas"
+      },
+      {
+        "url": "/products/d001/v1/sombra-e-agua-fresca-40-off-white-2-frente.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Sombra e Água Fresca Off-White — frente"
+      },
+      {
+        "url": "/products/d001/v1/sombra-e-agua-fresca-40-off-white-3-detalhe-costas.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Sombra e Água Fresca Off-White — detalhe da estampa das costas"
+      },
+      {
+        "url": "/products/d001/v1/sombra-e-agua-fresca-40-off-white-4-detalhe-frente.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Sombra e Água Fresca Off-White — detalhe da estampa do peito"
+      }
+    ]
+  },
+  "8dc4ebdc-da9e-421f-b3ef-1291edbafad9": {
+    "version": "d001-v1",
+    "images": [
+      {
+        "url": "/products/d001/v1/sombra-e-agua-fresca-34-off-white-1-costas.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Sombra e Água Fresca Off-White — costas"
+      },
+      {
+        "url": "/products/d001/v1/sombra-e-agua-fresca-34-off-white-2-frente.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Sombra e Água Fresca Off-White — frente"
+      },
+      {
+        "url": "/products/d001/v1/sombra-e-agua-fresca-34-off-white-3-detalhe-costas.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Sombra e Água Fresca Off-White — detalhe da estampa das costas"
+      },
+      {
+        "url": "/products/d001/v1/sombra-e-agua-fresca-34-off-white-4-detalhe-frente.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Sombra e Água Fresca Off-White — detalhe da estampa do peito"
+      }
+    ]
+  },
+  "db93cea7-5ab1-44d2-85e1-8be51d0d62e8": {
+    "version": "d001-v1",
+    "images": [
+      {
+        "url": "/products/d001/v1/maracuja-40-off-white-1-costas.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Maracujá Off-White — costas"
+      },
+      {
+        "url": "/products/d001/v1/maracuja-40-off-white-2-frente.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Maracujá Off-White — frente"
+      },
+      {
+        "url": "/products/d001/v1/maracuja-40-off-white-3-detalhe-costas.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Maracujá Off-White — detalhe da estampa das costas"
+      },
+      {
+        "url": "/products/d001/v1/maracuja-40-off-white-4-detalhe-frente.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Maracujá Off-White — detalhe da estampa do peito"
+      }
+    ]
+  },
+  "039b9dc8-a141-4a13-9ef5-84a5b5988932": {
+    "version": "d001-v1",
+    "images": [
+      {
+        "url": "/products/d001/v1/maracuja-34-off-white-1-costas.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Maracujá Off-White — costas"
+      },
+      {
+        "url": "/products/d001/v1/maracuja-34-off-white-2-frente.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Maracujá Off-White — frente"
+      },
+      {
+        "url": "/products/d001/v1/maracuja-34-off-white-3-detalhe-costas.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Maracujá Off-White — detalhe da estampa das costas"
+      },
+      {
+        "url": "/products/d001/v1/maracuja-34-off-white-4-detalhe-frente.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Maracujá Off-White — detalhe da estampa do peito"
+      }
+    ]
+  },
+  "b4e4b549-f6aa-4258-a5ee-fd38e693742e": {
+    "version": "d001-v1",
+    "images": [
+      {
+        "url": "/products/d001/v1/caju-40-off-white-1-costas.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Caju Off-White — costas"
+      },
+      {
+        "url": "/products/d001/v1/caju-40-off-white-2-frente.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Caju Off-White — frente"
+      },
+      {
+        "url": "/products/d001/v1/caju-40-off-white-3-detalhe-costas.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Caju Off-White — detalhe da estampa das costas"
+      },
+      {
+        "url": "/products/d001/v1/caju-40-off-white-4-detalhe-frente.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Caju Off-White — detalhe da estampa do peito"
+      }
+    ]
+  },
+  "6fdbc66d-3447-44fd-8c97-7ac8e5aef429": {
+    "version": "d001-v1",
+    "images": [
+      {
+        "url": "/products/d001/v1/caju-34-off-white-1-costas.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Caju Off-White — costas"
+      },
+      {
+        "url": "/products/d001/v1/caju-34-off-white-2-frente.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Caju Off-White — frente"
+      },
+      {
+        "url": "/products/d001/v1/caju-34-off-white-3-detalhe-costas.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Caju Off-White — detalhe da estampa das costas"
+      },
+      {
+        "url": "/products/d001/v1/caju-34-off-white-4-detalhe-frente.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Caju Off-White — detalhe da estampa do peito"
+      }
+    ]
+  },
+  "fb3a05fd-f3a5-4315-b68a-17169c73dcf0": {
+    "version": "d001-v1",
+    "images": [
+      {
+        "url": "/products/d001/v1/cafe-torra-lenta-40-chocolate-1-costas.webp",
+        "color": "Chocolate",
+        "alt": "Camiseta Café Torra Lenta Chocolate — costas"
+      },
+      {
+        "url": "/products/d001/v1/cafe-torra-lenta-40-chocolate-2-frente.webp",
+        "color": "Chocolate",
+        "alt": "Camiseta Café Torra Lenta Chocolate — frente"
+      },
+      {
+        "url": "/products/d001/v1/cafe-torra-lenta-40-chocolate-3-detalhe-costas.webp",
+        "color": "Chocolate",
+        "alt": "Camiseta Café Torra Lenta Chocolate — detalhe da estampa das costas"
+      },
+      {
+        "url": "/products/d001/v1/cafe-torra-lenta-40-chocolate-4-detalhe-frente.webp",
+        "color": "Chocolate",
+        "alt": "Camiseta Café Torra Lenta Chocolate — detalhe da estampa do peito"
+      }
+    ],
+    "colors": {
+      "Chocolate": "#533833"
+    }
+  },
+  "52a174c9-92ed-43c4-8146-3cb47b9bf893": {
+    "version": "d001-v1",
+    "images": [
+      {
+        "url": "/products/d001/v1/cafe-torra-lenta-34-marrom-1-costas.webp",
+        "color": "Marrom",
+        "alt": "Camiseta Café Torra Lenta Marrom — costas"
+      },
+      {
+        "url": "/products/d001/v1/cafe-torra-lenta-34-marrom-2-frente.webp",
+        "color": "Marrom",
+        "alt": "Camiseta Café Torra Lenta Marrom — frente"
+      },
+      {
+        "url": "/products/d001/v1/cafe-torra-lenta-34-marrom-3-detalhe-costas.webp",
+        "color": "Marrom",
+        "alt": "Camiseta Café Torra Lenta Marrom — detalhe da estampa das costas"
+      },
+      {
+        "url": "/products/d001/v1/cafe-torra-lenta-34-marrom-4-detalhe-frente.webp",
+        "color": "Marrom",
+        "alt": "Camiseta Café Torra Lenta Marrom — detalhe da estampa do peito"
+      }
+    ],
+    "colors": {
+      "Marrom": "#4D3226"
+    }
+  },
+  "7f9bafd6-6a51-4e8a-8ba9-697bff9f998e": {
+    "version": "d001-v1",
+    "images": [
+      {
+        "url": "/products/d001/v1/mesa-01-reservado-40-off-white-1-costas.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Mesa 01 Reservado Off-White — costas"
+      },
+      {
+        "url": "/products/d001/v1/mesa-01-reservado-40-off-white-2-frente.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Mesa 01 Reservado Off-White — frente"
+      },
+      {
+        "url": "/products/d001/v1/mesa-01-reservado-40-off-white-3-detalhe-costas.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Mesa 01 Reservado Off-White — detalhe da estampa das costas"
+      },
+      {
+        "url": "/products/d001/v1/mesa-01-reservado-40-off-white-4-detalhe-frente.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Mesa 01 Reservado Off-White — detalhe da estampa do peito"
+      }
+    ]
+  },
+  "36796b2b-6786-448c-9e7a-8fa4b97cd1fa": {
+    "version": "d001-v1",
+    "images": [
+      {
+        "url": "/products/d001/v1/mesa-01-reservado-34-off-white-1-costas.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Mesa 01 Reservado Off-White — costas"
+      },
+      {
+        "url": "/products/d001/v1/mesa-01-reservado-34-off-white-2-frente.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Mesa 01 Reservado Off-White — frente"
+      },
+      {
+        "url": "/products/d001/v1/mesa-01-reservado-34-off-white-3-detalhe-costas.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Mesa 01 Reservado Off-White — detalhe da estampa das costas"
+      },
+      {
+        "url": "/products/d001/v1/mesa-01-reservado-34-off-white-4-detalhe-frente.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Mesa 01 Reservado Off-White — detalhe da estampa do peito"
+      }
+    ]
+  },
+  "e1716886-ac34-4d7d-b151-37318baf06cf": {
+    "version": "d001-v1",
+    "images": [
+      {
+        "url": "/products/d001/v1/fartura-tropical-40-off-white-1-costas.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Fartura Tropical Off-White — costas"
+      },
+      {
+        "url": "/products/d001/v1/fartura-tropical-40-off-white-2-frente.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Fartura Tropical Off-White — frente"
+      },
+      {
+        "url": "/products/d001/v1/fartura-tropical-40-off-white-3-detalhe-costas.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Fartura Tropical Off-White — detalhe da estampa das costas"
+      },
+      {
+        "url": "/products/d001/v1/fartura-tropical-40-off-white-4-detalhe-frente.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Fartura Tropical Off-White — detalhe da estampa do peito"
+      }
+    ]
+  },
+  "a25ebf2a-e2fb-4a52-bdd4-7b6a97eabe01": {
+    "version": "d001-v1",
+    "images": [
+      {
+        "url": "/products/d001/v1/fartura-tropical-34-off-white-1-costas.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Fartura Tropical Off-White — costas"
+      },
+      {
+        "url": "/products/d001/v1/fartura-tropical-34-off-white-2-frente.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Fartura Tropical Off-White — frente"
+      },
+      {
+        "url": "/products/d001/v1/fartura-tropical-34-off-white-3-detalhe-costas.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Fartura Tropical Off-White — detalhe da estampa das costas"
+      },
+      {
+        "url": "/products/d001/v1/fartura-tropical-34-off-white-4-detalhe-frente.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Fartura Tropical Off-White — detalhe da estampa do peito"
+      }
+    ]
+  },
+  "da0e3258-f839-4638-8b5f-919998ad1537": {
+    "version": "d001-v1",
+    "images": [
+      {
+        "url": "/products/d001/v1/manga-rosa-40-off-white-1-costas.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Manga Rosa da Sombra Off-White — costas"
+      },
+      {
+        "url": "/products/d001/v1/manga-rosa-40-off-white-2-frente.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Manga Rosa da Sombra Off-White — frente"
+      },
+      {
+        "url": "/products/d001/v1/manga-rosa-40-off-white-3-detalhe-costas.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Manga Rosa da Sombra Off-White — detalhe da estampa das costas"
+      },
+      {
+        "url": "/products/d001/v1/manga-rosa-40-off-white-4-detalhe-frente.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Manga Rosa da Sombra Off-White — detalhe da estampa do peito"
+      }
+    ]
+  },
+  "8d919922-97db-4832-b1b6-f750476dec2b": {
+    "version": "d001-v1",
+    "images": [
+      {
+        "url": "/products/d001/v1/manga-rosa-34-off-white-1-costas.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Manga Rosa da Sombra Off-White — costas"
+      },
+      {
+        "url": "/products/d001/v1/manga-rosa-34-off-white-2-frente.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Manga Rosa da Sombra Off-White — frente"
+      },
+      {
+        "url": "/products/d001/v1/manga-rosa-34-off-white-3-detalhe-costas.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Manga Rosa da Sombra Off-White — detalhe da estampa das costas"
+      },
+      {
+        "url": "/products/d001/v1/manga-rosa-34-off-white-4-detalhe-frente.webp",
+        "color": "Off-White",
+        "alt": "Camiseta Manga Rosa da Sombra Off-White — detalhe da estampa do peito"
+      }
+    ]
+  },
+  "608433e1-d4a2-4d77-bcae-57af96b499ff": {
+    "version": "d001-v1",
+    "images": [
+      {
+        "url": "/products/d001/v1/interludio-40-preta-1-costas.webp",
+        "color": "Preta",
+        "alt": "Camiseta Interlúdio Preta — costas"
+      },
+      {
+        "url": "/products/d001/v1/interludio-40-preta-2-frente.webp",
+        "color": "Preta",
+        "alt": "Camiseta Interlúdio Preta — frente"
+      },
+      {
+        "url": "/products/d001/v1/interludio-40-preta-3-detalhe-costas.webp",
+        "color": "Preta",
+        "alt": "Camiseta Interlúdio Preta — detalhe da estampa das costas"
+      },
+      {
+        "url": "/products/d001/v1/interludio-40-preta-4-detalhe-frente.webp",
+        "color": "Preta",
+        "alt": "Camiseta Interlúdio Preta — detalhe da estampa do peito"
+      }
+    ]
+  },
+  "e27e1b59-1dd2-408b-b52a-01a6d4f8c719": {
+    "version": "d001-v1",
+    "images": [
+      {
+        "url": "/products/d001/v1/interludio-34-preto-1-costas.webp",
+        "color": "Preto",
+        "alt": "Camiseta Interlúdio Preto — costas"
+      },
+      {
+        "url": "/products/d001/v1/interludio-34-preto-2-frente.webp",
+        "color": "Preto",
+        "alt": "Camiseta Interlúdio Preto — frente"
+      },
+      {
+        "url": "/products/d001/v1/interludio-34-preto-3-detalhe-costas.webp",
+        "color": "Preto",
+        "alt": "Camiseta Interlúdio Preto — detalhe da estampa das costas"
+      },
+      {
+        "url": "/products/d001/v1/interludio-34-preto-4-detalhe-frente.webp",
+        "color": "Preto",
+        "alt": "Camiseta Interlúdio Preto — detalhe da estampa do peito"
+      }
+    ]
   }
 }
