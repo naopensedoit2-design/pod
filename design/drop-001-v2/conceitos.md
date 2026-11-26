@@ -11,7 +11,7 @@ Insight: a expressão fala de ócio **na sombra**. O herói tem que ser a sombra
 | 1 | Coco de quiosque com canudinho e a frase em script (a versão do Drop 001) | — | vetor |
 | 2 | Coqueiro na praia com a frase | — | clichê |
 | 3 | Copo americano com gelo e a frase | elevar o banal | precisaria de foto |
-| 4 | **O coco botânico de Köhler (1887), pequeno no alto, e a sombra dele enorme na diagonal, em retícula; a frase corre dentro da sombra** | literalizar + figura/fundo | prancha em domínio público |
+| 4 | **O coco botânico de Köhler (1897), pequeno no alto, e a sombra dele enorme na diagonal, em retícula; a frase corre dentro da sombra** | literalizar + figura/fundo | prancha em domínio público |
 | 5 | A palavra "Sombra" pequena, com uma sombra projetada gigante; "e água fresca" escrito dentro da sombra | literalizar, só tipografia | código |
 | 6 | Só a sombra de um guarda-sol e de duas cadeiras, sem os objetos; as pessoas foram embora | figura/fundo | código (sombra é forma chapada por natureza) |
 | 7 | "Seguir a sombra": a mesma sombra em 5 posições, com as horas (13h…17h), o hábito de arrastar a cadeira atrás da sombra | série + documento | código |

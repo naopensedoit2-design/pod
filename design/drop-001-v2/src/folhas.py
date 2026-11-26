@@ -29,6 +29,6 @@ def sheet(name, preview, art, box_mm, bg):
     print(name, s.size)
 
 sheet('sossega', 'final-sossega.jpg', 'sossega-C.png', (30, 30, 190, 130), (25, 77, 75))
-sheet('homeoffice', 'final-homeoffice.jpg', 'homeoffice-A.png', (40, 0, 300, 120), (106, 81, 36))
+sheet('homeoffice', 'final-homeoffice.jpg', 'homeoffice-A.png', (60, 75, 330, 165), (106, 81, 36))
 sheet('sombra', 'final-sombra.jpg', 'sombra-B.png', (140, 0, 285, 105), (239, 239, 220))
 sheet('bula', 'final-bula.jpg', 'bula-B.png', (0, 60, 200, 190), (255, 255, 255))

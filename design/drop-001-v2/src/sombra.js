@@ -1,4 +1,4 @@
-// Vaga 1 — "Sombra e água fresca": o coco de Köhler (1887) pequeno no alto e a sombra comprida dele na diagonal.
+// Vaga 1 — "Sombra e água fresca": o coco de Köhler (1897) pequeno no alto e a sombra comprida dele na diagonal.
 // A frase é recortada de dentro da sombra (sem tinta), lida ao longo do eixo da sombra.
 // Fluxo:  node src/sombra.js layout V  ->  python3 src/sombra_ko.py V  ->  node src/sombra.js compose V
 //   (PXMM=4 para esboço; o layout e a composição precisam usar o mesmo PXMM)
@@ -12,9 +12,10 @@ const variant = process.argv[3] || "A";
 const geo = JSON.parse(fs.readFileSync(path.join(C.ROOT, "work/sombra-geo.json"), "utf8"));
 const CFG = {
   // A: frase em script recortada da sombra; B: frase em serifa itálica; C: frase menor, só na metade densa
-  A: { font: "pinyon-script", style: "normal", width: 0.52, at: 0.44, halo: 1.1 },
-  B: { font: "im-fell-english", style: "italic", width: 0.56, at: 0.45, halo: 1.0 },
-  C: { font: "ephesis", style: "normal", width: 0.54, at: 0.45, halo: 1.1 },
+  A: { font: "pinyon-script", weight: 400, style: "normal", width: 0.52, at: 0.44, halo: 1.1, ring: 0 },
+  // B: voz pesada (Fraunces itálica 800), frase de ~22 cm; letra vazada com folga de 0,3 mm e aro chapado de 1,2 mm
+  B: { font: "fraunces", weight: 800, style: "italic", width: 0.73, at: 0.50, halo: 0.3, ring: 1.5 },
+  C: { font: "ephesis", weight: 400, style: "normal", width: 0.54, at: 0.45, halo: 1.1, ring: 0 },
 }[variant];
 const PHRASE = "Sombra e água fresca";
 const INK = "#22302A";
@@ -42,21 +43,27 @@ function layout() {
 
 (async () => {
   const lay = layout();
-  const size = C.sizeFor(CFG.font, 400, PHRASE, geo.comprimento_mm * CFG.width);
-  const t = C.textMM(CFG.font, 400, PHRASE, { x: lay.P.x, y: lay.P.y, size, anchor: "middle", style: CFG.style });
+  const size = C.L.fitSize(CFG.font, CFG.weight, PHRASE, mm(geo.comprimento_mm * CFG.width), 0, CFG.style) / C.PXMM;
+  const t = C.textMM(CFG.font, CFG.weight, PHRASE, { x: lay.P.x, y: lay.P.y, size, anchor: "middle", style: CFG.style });
   const mid = (t.bbox.y1 + t.bbox.y2) / 2; // centraliza a frase no eixo da sombra
   const tr = `rotate(${lay.rot} ${mm(lay.P.x)} ${mm(lay.P.y)}) translate(0 ${mm(lay.P.y - mid)})`;
   if (mode === "layout") {
-    const ko = `<rect width="100%" height="100%" fill="#000"/><g transform="${tr}"><path d="${t.d}" fill="#fff" stroke="#fff" stroke-width="${mm(CFG.halo * 2)}" stroke-linejoin="round"/></g>`;
-    await C.L.sharp(Buffer.from(C.svgDoc(lay.W, lay.H, ko))).png().toFile(path.join(C.ROOT, `work/sombra-ko-${variant}.png`));
+    const mask = (halo) => `<rect width="100%" height="100%" fill="#000"/><g transform="${tr}"><path d="${t.d}" fill="#fff" stroke="#fff" stroke-width="${mm(halo * 2)}" stroke-linejoin="round"/></g>`;
+    await C.L.sharp(Buffer.from(C.svgDoc(lay.W, lay.H, mask(CFG.halo)))).png().toFile(path.join(C.ROOT, `work/sombra-ko-${variant}.png`));
+    if (CFG.ring) await C.L.sharp(Buffer.from(C.svgDoc(lay.W, lay.H, mask(CFG.ring)))).png().toFile(path.join(C.ROOT, `work/sombra-ring-${variant}.png`));
     fs.writeFileSync(path.join(C.ROOT, `work/sombra-layout-${variant}.json`), JSON.stringify({ ...lay, pxmm: C.PXMM }, null, 1));
     console.log("layout", variant, lay.W.toFixed(0), "x", lay.H.toFixed(0), "mm; frase", size.toFixed(1), "mm");
     return;
   }
   let body = (await C.imageEl(path.join(C.ROOT, `work/sombra-canvas-${variant}.png`), 0, 0, lay.W)).svg;
   body += (await C.imageEl(path.join(C.ROOT, "work/coco.png"), lay.coco.x, lay.coco.y, geo.coco_mm[0])).svg;
-  const cr = C.richMM("im-fell-english", 400, [["Cocos nucifera", "italic"], [" — Koehler, 1897", "normal"]], { x: lay.W - 6, y: lay.H - 4, size: 5.4, anchor: "end" });
-  body += `<path d="${cr.d}" fill="${INK}"/>`;
+  // crédito como etiqueta de museu, ao lado do coco (à esquerda, alinhado pela direita a 4 mm dele).
+  // Embaixo do coco não dá: é onde a sombra nasce, e a letra sumia nos pontos da retícula (mesma tinta).
+  const lx = lay.coco.x - 4, ly = lay.coco.y + geo.coco_mm[1] * 0.62;
+  const cs = 4.6; // abaixo de ~4,5 mm o pingo do "i" itálico fica menor que o ponto mínimo do DTF (0,28 mm²)
+  const cr1 = C.richMM("archivo", 600, [["Cocos nucifera", "italic"]], { x: lx, y: ly - cs * 1.3, size: cs, anchor: "end" });
+  const cr2 = C.richMM("archivo", 600, [["Koehler, 1897", "normal"]], { x: lx, y: ly, size: cs, anchor: "end" });
+  body += `<g fill="${INK}"><path d="${cr1.d}"/><path d="${cr2.d}"/></g>`;
   const r = await C.render(C.svgDoc(lay.W, lay.H, body), C.out(`sombra-${variant}.png`), { trim: true });
   console.log("compose", variant, r.file);
 })().catch((e) => { console.error(e); process.exit(1); });

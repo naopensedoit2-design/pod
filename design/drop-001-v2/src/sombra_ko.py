@@ -33,12 +33,27 @@ ht = np.asarray(Image.open(W + f'sombra-ht-{v}.png')).copy()
 on = ht[..., 3] > 127
 # nas áreas densas a tinta é uma malha contínua: corta no contorno da frase e depois tira só as
 # lascas pequenas que o corte criou (menores que um ponto mínimo do DTF)
-cut = on & ~ko
+ring_file = W + f'sombra-ring-{v}.png'
+if os.path.exists(ring_file):
+    ring = np.asarray(Image.open(ring_file).convert('L')) > 127
+    cut = (on & ~ring) | (ring & ~ko)          # aro chapado em volta da letra vazada
+else:
+    cut = on & ~ko
 lab, n = ndi.label(cut)
 sizes = ndi.sum(cut, lab, range(1, n + 1)) if n else np.array([])
 min_px = 0.30 * (dpi / 25.4) ** 2
 small = np.isin(lab, np.nonzero(sizes < min_px)[0] + 1)
 cut &= ~small
+# perto de 50% os pontos se encostam pelos cantos e prendem furinhos (< 0,18 mm²) que a tinta do DTF fecha.
+# Fecho aqui, para o arquivo mostrar o que vai ser impresso. O furo pega a cor do ponto vizinho.
+holes = ndi.binary_fill_holes(cut) & ~cut
+hl, hn = ndi.label(holes)
+hs = ndi.sum(holes, hl, range(1, hn + 1)) if hn else np.array([])
+tiny = np.isin(hl, np.nonzero(hs < 0.18 * (dpi / 25.4) ** 2)[0] + 1)
+if tiny.any():
+    _, (iy, ix) = ndi.distance_transform_edt(~cut, return_indices=True)
+    ht[tiny, :3] = ht[iy[tiny], ix[tiny], :3]
+cut |= tiny
 ht[..., 3] = np.where(cut, 255, 0)
 Image.fromarray(ht, 'RGBA').save(W + f'sombra-canvas-{v}.png', dpi=(dpi, dpi))
-print(f'{v}: corte da frase; {int(small.sum())} px de lascas removidos')
+print(f'{v}: corte da frase; {int(small.sum())} px de lascas removidos; {int(np.unique(hl[tiny]).size)} furinhos fechados')

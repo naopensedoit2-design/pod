@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """QA de impressão DTF: tamanho em cm, semitransparência, ilhas e furos minúsculos, traços finos, área de tinta.
 
-Uso: python3 design/tools/qa.py arte1.png arte2.png ... [--fix] [--min-mm 0.4]
+Uso: python3 design/tools/qa.py arte1.png arte2.png ... [--fix | --fill-holes] [--min-mm 0.4]
 --fix remove ilhas minúsculas, preenche furinhos e binariza o alfa. Não engrossa traços: para isso use min_stroke.py.
+--fill-holes só fecha os furinhos (< 0,18 mm²) com a cor vizinha, como a tinta do DTF faria. Nunca apaga nada,
+  então pode rodar em arte com texto (o --fix apagaria pingo de "i" e ponto final).
 """
 import os, sys, json, glob, argparse
 _lib = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.pylib')
@@ -16,6 +18,7 @@ Image.MAX_IMAGE_PIXELS = None
 ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
 ap.add_argument('files', nargs='+')
 ap.add_argument('--fix', action='store_true')
+ap.add_argument('--fill-holes', action='store_true')
 ap.add_argument('--min-mm', type=float, default=0.4)
 a = ap.parse_args()
 files = sorted({f for p in a.files for f in glob.glob(p)})
@@ -64,4 +67,11 @@ for f in files:
         im[..., 3] = np.where(keep | small_holes, 255, 0)
         Image.fromarray(im, 'RGBA').save(f, dpi=(dpi, dpi), optimize=True)
         msg['corrigido'] = True
+    elif a.fill_holes and tinyh:
+        small_holes = np.isin(hl, np.nonzero(hsz < hole_px)[0] + 1)
+        idx = ndi.distance_transform_edt(~op, return_distances=False, return_indices=True)
+        im[small_holes, :3] = im[idx[0][small_holes], idx[1][small_holes], :3]
+        im[small_holes, 3] = 255
+        Image.fromarray(im, 'RGBA').save(f, dpi=(dpi, dpi), optimize=True)
+        msg['furos_fechados'] = tinyh
     print(json.dumps(msg, ensure_ascii=False))

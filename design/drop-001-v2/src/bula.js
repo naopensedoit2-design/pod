@@ -10,11 +10,11 @@ const INK = variant === "B" ? "#1F3D9C" : "#1E1A17";
 
 // ---------- texto ----------
 const QA = [
-  ["1. Para que este medicamento é indicado?", "Pressa, segunda-feira, fila de banco e e-mail com “urgente” no assunto."],
+  ["1. Para que este medicamento é indicado?", "Pressa, segunda-feira, fila de banco e trânsito."],
   ["2. Como este medicamento funciona?", "Ninguém sabe ao certo. A avó garante que funciona, e isso basta."],
-  ["3. Quando não devo usar este medicamento?", "Antes de dirigir, de assinar contrato ou de responder o grupo da família."],
-  ["4. O que devo saber antes de usar este medicamento?", "Pode causar sono, vontade de rede e adiamento de compromissos."],
-  ["5. Onde, como e por quanto tempo posso guardar este medicamento?", "Na fruteira, à sombra. Está no ponto quando enruga."],
+  ["3. Quando não devo usar este medicamento?", "Antes de dirigir, de assinar contrato ou de responder ao grupo da família."],
+  ["4. O que devo saber antes de usar este medicamento?", "Não associar a café, despertador ou boleto."],
+  ["5. Onde, como e por quanto tempo posso guardar este medicamento?", "Na fruteira, longe do sol. Está no ponto quando enruga."],
   ["6. Como devo usar este medicamento?", "Um copo ao fim da tarde, devagar. Sentado. Se não for possível, deitado."],
   ["7. O que devo fazer quando eu me esquecer de usar este medicamento?", "Nada. Esquecer já é sinal de que está funcionando."],
   ["8. Quais os males que este medicamento pode me causar?", "Cochilo no sofá com a TV ligada, bocejo contagioso e atraso de 15 minutos."],
@@ -38,13 +38,26 @@ function wrap(font, weight, str, size, width, style = "normal") {
   return lines;
 }
 
-/** Bloco de linhas; devolve svg e altura usada. */
-function block(font, weight, str, { x, y, size, width, lead = 1.32, style = "normal" }) {
+/** Bloco de linhas (justificado, como na bula impressa); devolve svg e altura usada. */
+function block(font, weight, str, { x, y, size, width, lead = 1.2, style = "normal", justify = false }) {
   let svg = "";
   const lines = wrap(font, weight, str, size, width, style);
   lines.forEach((l, i) => {
-    const t = C.textMM(font, weight, l.replace(/\u00A0/g, " "), { x, y: y + i * size * lead, size, style });
-    svg += `<path d="${t.d}"/>`;
+    const yy = y + i * size * lead;
+    const last = i === lines.length - 1;
+    // o espaço inseparável (\u00A0) segura a quebra de linha, mas na justificação estica como qualquer espaço
+    const words = l.split(/[ \u00A0]/);
+    if (!justify || last || words.length < 2) {
+      svg += `<path d="${C.textMM(font, weight, l.replace(/\u00A0/g, " "), { x, y: yy, size, style }).d}"/>`;
+      return;
+    }
+    const ws = words.map((w) => C.textMM(font, weight, w.replace(/\u00A0/g, " "), { size, style }).width);
+    const gap = (width - ws.reduce((a, b) => a + b, 0)) / (words.length - 1);
+    let cx = x;
+    words.forEach((w, k) => {
+      svg += `<path d="${C.textMM(font, weight, w.replace(/\u00A0/g, " "), { x: cx, y: yy, size, style }).d}"/>`;
+      cx += ws[k] + gap;
+    });
   });
   return { svg, h: lines.length * size * lead };
 }
@@ -86,7 +99,8 @@ function chrysin(ox, oy, s, lw) {
   // C4=O: ligação dupla para fora do anel
   line("C4", "O4", 0, gap("O4"), [-0.09 * s, 0]);
   line("C4", "O4", 0, gap("O4"), [0.09 * s, 0]);
-  let svg = `<path d="${d}" fill="none" stroke="${INK}" stroke-width="${mm(lw)}" stroke-linecap="round"/>`;
+  const svg = `<path d="${d}" fill="none" stroke="${INK}" stroke-width="${mm(lw)}" stroke-linecap="round"/>`;
+  let labelsSvg = "";
   const ls = 0.42 * s;
   for (const [p, txt] of Object.entries(labels)) {
     const o = C.textMM("archivo", 500, "O", { size: ls });
@@ -94,9 +108,9 @@ function chrysin(ox, oy, s, lw) {
     let x = X(p) - ow / 2; // o "O" fica centrado no átomo
     if (txt === "HO") x -= C.textMM("archivo", 500, "H", { size: ls }).width;
     const t = C.textMM("archivo", 500, txt, { x, y: Y(p) + ls * 0.36, size: ls });
-    svg += `<path d="${t.d}" fill="${INK}"/>`;
+    labelsSvg += `<path d="${t.d}" fill="${INK}"/>`;
   }
-  return { svg, w: (6 * k + 2 * k) * s, h: 4.5 * s };
+  return { svg, labels: labelsSvg, w: (6 * k + 2 * k) * s, h: 4.5 * s };
 }
 
 /** Fórmula com subscritos: C15H10O4. */
@@ -113,8 +127,8 @@ function formula(x, y, size) {
 
 (async () => {
   if (variant === "frente") {
-    const W = 92, s = 5.8;
-    let svg = `<g fill="#1E1A17">`;
+    const s = 5.8;
+    let svg = `<g fill="${variant === "frente" ? "#1F3D9C" : INK}">`;
     const l1 = C.textMM("archivo-narrow", 700, "AO PERSISTIREM OS SINTOMAS,", { x: 0, y: s * 1.0, size: s });
     const l2 = C.textMM("archivo-narrow", 700, "A REDE DEVERÁ SER CONSULTADA.", { x: 0, y: s * 2.25, size: s });
     svg += `<path d="${l1.d}"/><path d="${l2.d}"/></g>`;
@@ -122,66 +136,81 @@ function formula(x, y, size) {
     return console.log("frente", r.file);
   }
   const W = 270, pad = 2;
-  const colW = (W - 12) / 2;
-  let y = 0, svg = `<g fill="${INK}">`;
-  // cabeçalho
-  const hs = 40;
-  const h1 = C.textMM("archivo-black", 400, "MARACUJÁ", { x: pad, y: y + hs * 0.74, size: hs });
-  const fit = (W - 2 * pad) / h1.width; // título ocupa a largura toda
-  const probe = C.textMM("archivo-black", 400, "MARACUJÁ", { x: pad, y: 0, size: hs * fit });
-  const H1 = C.textMM("archivo-black", 400, "MARACUJÁ", { x: pad, y: y - probe.bbox.y1 + 1.5, size: hs * fit });
+  const colW = (W - 2 * pad - 12) / 2;
+  // Duas camadas. "svg" é cortada pelos vincos: título, filetes, ligações da molécula, perguntas e títulos em
+  // caixa-alta bold (o corte divide em pedaços grandes e a palavra continua legível). "prot" fica inteira:
+  // respostas, composição, rótulos da fórmula e dizeres legais, onde o vinco apagaria acento e trocaria letra
+  // ("funciona" virava "tunciona", "do sol" virava "dc sol").
+  let y = 0, svg = `<g fill="${INK}">`, prot = "";
+  const rule = (yy) => `<rect x="${mm(pad)}" y="${mm(yy)}" width="${mm(W - 2 * pad)}" height="${mm(0.7)}"/>`;
+  // cabeçalho: título alinhado à esquerda, ~16 cm; "uso" no canto direito
+  const tw = 160;
+  const ts = C.sizeFor("archivo-black", 400, "MARACUJÁ", tw);
+  const probe = C.textMM("archivo-black", 400, "MARACUJÁ", { x: pad, y: 0, size: ts });
+  const H1 = C.textMM("archivo-black", 400, "MARACUJÁ", { x: pad, y: -probe.bbox.y1 + 1.5, size: ts });
   svg += `<path d="${H1.d}"/>`;
-  y = H1.bbox.y2 + 11;
-  const sp = C.textMM("archivo", 400, "Passiflora edulis Sims", { x: pad, y, size: 9, style: "italic" });
-  svg += `<path d="${sp.d}"/>`;
-  const uso = C.textMM("archivo", 800, "USO ORAL", { x: W - pad, y: y + 3.6, size: 4.6, anchor: "end" });
-  const uso2 = C.textMM("archivo", 800, "USO ADULTO E PEDIÁTRICO", { x: W - pad, y: y - 2.8, size: 4.6, anchor: "end" });
+  const uso2 = C.textMM("archivo", 800, "USO ADULTO E PEDIÁTRICO", { x: W - pad, y: H1.bbox.y2 - 7, size: 4.6, anchor: "end" });
+  const uso = C.textMM("archivo", 800, "USO ORAL", { x: W - pad, y: H1.bbox.y2, size: 4.6, anchor: "end" });
   svg += `<path d="${uso.d}"/><path d="${uso2.d}"/>`;
-  y += 8;
-  svg += `<rect x="${mm(pad)}" y="${mm(y)}" width="${mm(W - 2 * pad)}" height="${mm(0.7)}"/>`;
+  y = H1.bbox.y2 + 11;
+  const sp = C.richMM("archivo", 400, [["Passiflora edulis", "italic"], [" Sims", "normal"]], { x: pad, y, size: 9 });
+  svg += `<path d="${sp.d}"/>`;
+  y += 6;
+  svg += rule(y);
   y += 8;
   const comp = block("archivo", 600, "APRESENTAÇÃO: fruta com casca, cerca de 200 g. COMPOSIÇÃO: polpa e sementes q.s.p. 1 fim de tarde.", { x: pad, y: y + 4.6, size: 4.9, width: W - 2 * pad });
-  svg += comp.svg;
+  prot += comp.svg;
   y += comp.h + 6;
-  // molécula
-  if (variant !== "C") {
-    const s = variant === "A" || variant === "B" ? 20 : 13;
-    const k = Math.sqrt(3) / 2;
-    const mw = 8 * k * s;
-    const ox = pad + (W - mw) / 2 + 2 * k * s;
-    const mol = chrysin(ox, y + 2.3 * s, s, 0.75);
-    svg += `</g>${mol.svg}<g fill="${INK}">`;
-    y += 4.6 * s;
-    const f = formula(pad, y + 6, 6);
-    const lab = C.textMM("archivo", 600, "Crisina, flavonoide das passifloras.", { x: pad + f.w + 3, y: y + 6, size: 5, style: "italic" });
-    svg += f.svg + `<path d="${lab.d}"/>`;
-    y += 14;
-  }
-  svg += `<rect x="${mm(pad)}" y="${mm(y)}" width="${mm(W - 2 * pad)}" height="${mm(0.7)}"/>`;
+  // molécula (traço de 1,2 mm para ler a 3 m)
+  const ms = 20;
+  const k = Math.sqrt(3) / 2;
+  const mw = 8 * k * ms;
+  const ox = pad + (W - mw) / 2 + 2 * k * ms;
+  const mol = chrysin(ox, y + 2.3 * ms, ms, 1.2);
+  svg += `</g>${mol.svg}<g fill="${INK}">`;
+  prot += mol.labels;
+  y += 4.6 * ms;
+  const f = formula(pad, y + 6, 6);
+  const lab = C.textMM("archivo", 600, "Crisina, flavonoide das passifloras.", { x: pad + f.w + 3, y: y + 6, size: 5, style: "italic" });
+  prot += f.svg + `<path d="${lab.d}"/>`;
+  y += 14;
+  svg += rule(y);
   y += 9;
   const info = C.textMM("archivo", 800, "INFORMAÇÕES AO PACIENTE", { x: pad, y, size: 5 });
   svg += `<path d="${info.d}"/>`;
-  y += 9;
-  // duas colunas
+  y += 8;
+  // duas colunas: perguntas em caixa-alta bold, respostas justificadas
   const cols = [QA.slice(0, 4), QA.slice(4)];
   let ymax = y;
   cols.forEach((items, ci) => {
     let yy = y;
     const x = pad + ci * (colW + 12);
     for (const [q, a] of items) {
-      const qb = block("archivo", 800, q, { x, y: yy, size: 4.9, width: colW });
-      svg += qb.svg; yy += qb.h + 0.6;
-      const ab = block("archivo", 600, a, { x, y: yy, size: 4.9, width: colW });
-      svg += ab.svg; yy += ab.h + 5;
+      const qb = block("archivo", 800, q.toUpperCase(), { x, y: yy, size: 4.5, width: colW });
+      svg += qb.svg; yy += qb.h + 0.4;
+      const ab = block("archivo", 600, a, { x, y: yy, size: 4.9, width: colW, justify: true });
+      prot += ab.svg; yy += ab.h + 2.5;
     }
     ymax = Math.max(ymax, yy);
   });
-  y = ymax + 2;
-  svg += `<rect x="${mm(pad)}" y="${mm(y)}" width="${mm(W - 2 * pad)}" height="${mm(0.7)}"/>`;
+  y = ymax + 1;
+  svg += rule(y);
   y += 8;
   const legal = C.textMM("archivo", 800, "Fabricado pela natureza. Embalado pela LENTO. Lote: verão.", { x: pad, y, size: 4.9 });
-  svg += `<path d="${legal.d}"/></g>`;
+  prot += `<path d="${legal.d}"/>`;
+  svg += `</g>`;
   const Hh = y + 3;
-  const r = await C.render(C.svgDoc(W + 2, Hh, svg), C.out(`bula-${variant}.png`));
+  // vincos da bula desdobrada: duas linhas verticais e duas horizontais, vazadas (0,8 mm)
+  const v = 0.8;
+  // posições dos vincos: work/bula-vincos-<v>.json (src/bula_vincos.py: perto dos terços, cortando texto sem criar ilha)
+  const fs = require("fs"), path = require("path");
+  const vf = path.join(C.ROOT, `work/bula-vincos-${variant}.json`);
+  const vz = process.env.NOVINCO || process.env.CAMADA ? { x: [], y: [] } : fs.existsSync(vf) ? JSON.parse(fs.readFileSync(vf, "utf8")) : { x: [W / 3, (2 * W) / 3], y: [Hh / 3, (2 * Hh) / 3] };
+  const creases = vz.x.map((xx) => `<rect x="${mm(xx - v / 2)}" y="0" width="${mm(v)}" height="${mm(Hh)}" fill="#000"/>`).join("") +
+    vz.y.map((yy) => `<rect x="0" y="${mm(yy - v / 2)}" width="${mm(W + 2)}" height="${mm(v)}" fill="#000"/>`).join("");
+  const camada = process.env.CAMADA; // "cortavel": só a camada que os vincos cortam (para src/bula_vincos.py)
+  const body = `<defs><mask id="vinco" maskUnits="userSpaceOnUse" x="0" y="0" width="${mm(W + 2)}" height="${mm(Hh)}"><rect width="${mm(W + 2)}" height="${mm(Hh)}" fill="#fff"/>${creases}</mask></defs><g mask="url(#vinco)">${svg}</g>` +
+    (camada === "cortavel" ? "" : `<g fill="${INK}">${prot}</g>`);
+  const r = await C.render(C.svgDoc(W + 2, Hh, body), C.out(camada === "cortavel" ? `bula-${variant}-cortavel.png` : `bula-${variant}.png`), { trim: false });
   console.log(variant, "folheto", W, "x", Hh.toFixed(0), "mm", r.file);
 })().catch((e) => { console.error(e); process.exit(1); });
