@@ -29,6 +29,7 @@ ap.add_argument('--keep', type=int, default=1, help='quantos componentes (os mai
 ap.add_argument('--feather', type=float, default=0.0)
 ap.add_argument('--no-fill', action='store_true', help='não preencher buracos internos (ex.: vão entre as pernas)')
 ap.add_argument('--scale', type=int, default=4, help='redução para a primeira passada')
+ap.add_argument('--no-crop', action='store_true', help='mantém o tamanho da imagem original (para combinar recortes)')
 a = ap.parse_args()
 
 
@@ -81,7 +82,7 @@ if a.feather > 0:
 else:
     alpha = (ndi.gaussian_filter(fg.astype(np.float32), 2.0) > 0.5).astype(np.float32)
 ys, xs = np.nonzero(alpha > 0.01)
-y0, y1, x0, x1 = ys.min(), ys.max() + 1, xs.min(), xs.max() + 1
+y0, y1, x0, x1 = (0, H, 0, W) if a.no_crop else (ys.min(), ys.max() + 1, xs.min(), xs.max() + 1)
 rgba = np.dstack([im, alpha * 255]).astype(np.uint8)[y0:y1, x0:x1]
 Image.fromarray(rgba, 'RGBA').save(a.dst, dpi=(300, 300), optimize=True)
 print(f'{os.path.basename(a.dst)}: {rgba.shape[1]}x{rgba.shape[0]} px ({rgba.shape[1] / 118.11:.1f} x {rgba.shape[0] / 118.11:.1f} cm a 300 DPI)')

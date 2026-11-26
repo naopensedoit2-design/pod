@@ -48,7 +48,7 @@ function fitSize(fontName, weight, str, width, tracking = 0, style = "normal") {
 }
 
 /** Renderiza SVG (em px a 300 DPI) para PNG com alfa binário, recortado pelo conteúdo. Devolve o tamanho em cm. */
-async function render(svg, out, { trim = true, alphaThreshold = 128 } = {}) {
+async function render(svg, out, { trim = true, alphaThreshold = 128, dpi = DPI } = {}) {
   const img = sharp(Buffer.from(svg), { density: 72, limitInputPixels: false, unlimited: true }).ensureAlpha();
   const { data, info } = await img.raw().toBuffer({ resolveWithObject: true });
   let x1 = info.width, y1 = info.height, x2 = -1, y2 = -1;
@@ -69,8 +69,9 @@ async function render(svg, out, { trim = true, alphaThreshold = 128 } = {}) {
     const buf = await s.png().toBuffer();
     s = sharp(buf).extract({ left: x1, top: y1, width: x2 - x1 + 1, height: y2 - y1 + 1 });
   }
-  const r = await s.withMetadata({ density: DPI }).png({ compressionLevel: 9 }).toFile(out);
-  return { file: out, w: r.width, h: r.height, wcm: +(r.width / MM / 10).toFixed(2), hcm: +(r.height / MM / 10).toFixed(2) };
+  const r = await s.withMetadata({ density: dpi }).png({ compressionLevel: 9 }).toFile(out);
+  const pxmm = dpi / 25.4;
+  return { file: out, w: r.width, h: r.height, dpi, wcm: +(r.width / pxmm / 10).toFixed(2), hcm: +(r.height / pxmm / 10).toFixed(2) };
 }
 
 /** Prévia rápida da arte sobre uma cor de fundo (para olhar a arte isolada). */

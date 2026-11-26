@@ -27,10 +27,11 @@ function mockupFile(base, color, side) {
   return file;
 }
 
-/** Tamanho da arte em cm (PNG a 300 DPI). */
+/** Tamanho da arte em cm, pela resolução gravada no PNG (300 DPI se não houver). */
 async function artCm(file) {
   const m = await sharp(file).metadata();
-  return { w: m.width / MM / 10, h: m.height / MM / 10, px: [m.width, m.height] };
+  const pxmm = m.density && m.density > 30 ? m.density / 25.4 : MM;
+  return { w: m.width / pxmm / 10, h: m.height / pxmm / 10, px: [m.width, m.height], dpi: Math.round(pxmm * 25.4) };
 }
 
 const r4 = (v) => Math.round(v * 10000) / 10000;
