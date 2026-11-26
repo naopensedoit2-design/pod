@@ -2,18 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { and, asc, desc, eq, ilike, type SQL } from "drizzle-orm";
 import { db } from "@/db";
-import { productImages, products, variants } from "@/db/schema";
-import { EmptyState, LinkButton, PageHeader, Pill, inputClass } from "@/components/admin/ui";
-import { cn, formatBRL } from "@/lib/format";
+import { categories, productImages, products, variants } from "@/db/schema";
+import { EmptyState, LinkButton, PageHeader, inputClass } from "@/components/admin/ui";
+import { cn } from "@/lib/format";
 import { isYouDrawConfigured } from "@/lib/youdraw";
+import { ProductsTable } from "./products-table";
 
 export const metadata: Metadata = { title: "Produtos" };
-
-const STATUS: Record<string, { label: string; tone: "green" | "gray" | "yellow" }> = {
-  active: { label: "Ativo", tone: "green" },
-  draft: { label: "Rascunho", tone: "yellow" },
-  archived: { label: "Arquivado", tone: "gray" },
-};
 
 export default async function ProductsAdminPage({ searchParams }: PageProps<"/admin/produtos">) {
   const sp = await searchParams;
@@ -23,15 +18,18 @@ export default async function ProductsAdminPage({ searchParams }: PageProps<"/ad
   if (q) where.push(ilike(products.title, `%${q}%`));
   if (status) where.push(eq(products.status, status));
 
-  const rows = await db.query.products.findMany({
-    where: where.length ? and(...where) : undefined,
-    orderBy: [asc(products.sortOrder), desc(products.createdAt)],
-    with: {
-      category: { columns: { name: true } },
-      images: { columns: { url: true }, orderBy: [asc(productImages.sortOrder)], limit: 1 },
-      variants: { columns: { id: true, ydSku: true, stock: true, isActive: true }, orderBy: [asc(variants.sortOrder)] },
-    },
-  });
+  const [rows, cats] = await Promise.all([
+    db.query.products.findMany({
+      where: where.length ? and(...where) : undefined,
+      orderBy: [asc(products.sortOrder), desc(products.createdAt)],
+      with: {
+        category: { columns: { name: true } },
+        images: { columns: { url: true }, orderBy: [asc(productImages.sortOrder)], limit: 1 },
+        variants: { columns: { id: true, ydSku: true }, orderBy: [asc(variants.sortOrder)] },
+      },
+    }),
+    db.select({ id: categories.id, name: categories.name }).from(categories).orderBy(asc(categories.sortOrder), asc(categories.name)),
+  ]);
 
   return (
     <>
@@ -82,56 +80,22 @@ export default async function ProductsAdminPage({ searchParams }: PageProps<"/ad
           ou importe da YouDraw.
         </EmptyState>
       ) : (
-        <div className="overflow-x-auto rounded-lg border border-neutral-200 bg-white">
-          <table className="w-full text-sm">
-            <thead className="border-b bg-neutral-50 text-left text-xs text-neutral-500">
-              <tr>
-                <th className="px-4 py-2.5 font-medium">Produto</th>
-                <th className="px-3 py-2.5 font-medium">Preço</th>
-                <th className="px-3 py-2.5 font-medium">Variações</th>
-                <th className="px-3 py-2.5 font-medium">Vendas</th>
-                <th className="px-4 py-2.5 font-medium">Status</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y">
-              {rows.map((p) => {
-                const linked = p.variants.filter((v) => v.ydSku).length;
-                return (
-                  <tr key={p.id} className="hover:bg-neutral-50">
-                    <td className="px-4 py-2.5">
-                      <Link href={`/admin/produtos/${p.id}`} className="flex items-center gap-3">
-                        <span className="h-14 w-11 shrink-0 overflow-hidden rounded bg-neutral-100">
-                          {p.images[0] && (
-                            // eslint-disable-next-line @next/next/no-img-element
-                            <img src={p.images[0].url} alt="" className="h-full w-full object-cover" />
-                          )}
-                        </span>
-                        <span>
-                          <span className="font-medium hover:underline">{p.title}</span>
-                          <span className="block text-xs text-neutral-500">{p.category?.name ?? "Sem categoria"}</span>
-                        </span>
-                      </Link>
-                    </td>
-                    <td className="px-3 py-2.5 tabular-nums">
-                      {formatBRL(p.priceCents)}
-                      {p.compareAtCents && <span className="block text-xs text-neutral-400 line-through">{formatBRL(p.compareAtCents)}</span>}
-                    </td>
-                    <td className="px-3 py-2.5 text-xs">
-                      {p.variants.length}
-                      <span className={cn("block", linked === p.variants.length ? "text-emerald-700" : linked ? "text-amber-700" : "text-neutral-400")}>
-                        {linked === p.variants.length ? "YouDraw ✓" : linked ? `${linked} com YouDraw` : "sem YouDraw"}
-                      </span>
-                    </td>
-                    <td className="px-3 py-2.5 tabular-nums">{p.salesCount}</td>
-                    <td className="px-4 py-2.5">
-                      <Pill tone={STATUS[p.status]?.tone ?? "gray"}>{STATUS[p.status]?.label ?? p.status}</Pill>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+        <ProductsTable
+          categories={cats}
+          rows={rows.map((p) => ({
+            id: p.id,
+            title: p.title,
+            category: p.category?.name ?? null,
+            tags: p.tags,
+            imageUrl: p.images[0]?.url ?? null,
+            priceCents: p.priceCents,
+            compareAtCents: p.compareAtCents,
+            variantsCount: p.variants.length,
+            linkedCount: p.variants.filter((v) => v.ydSku).length,
+            salesCount: p.salesCount,
+            status: p.status,
+          }))}
+        />
       )}
     </>
   );

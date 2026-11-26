@@ -5,8 +5,9 @@ import { refresh, updateTag } from "next/cache";
 import { and, eq, inArray, ne, notInArray } from "drizzle-orm";
 import { z } from "zod";
 import { db } from "@/db";
-import { dataPatches, productImages, products, variants } from "@/db/schema";
+import { categories, dataPatches, productImages, products, variants } from "@/db/schema";
 import { requireAdmin } from "@/lib/auth";
+import { applyCompareAtChange, applyPriceChange, applyVariantPriceChange, MIN_PRICE_CENTS } from "@/lib/bulk-price";
 import { slugify } from "@/lib/format";
 import { importRemoteImage } from "@/lib/media";
 import { productPhotosFor } from "@/lib/product-photos";
@@ -188,12 +189,136 @@ export async function duplicateProductAction(id: number) {
   redirect(`/admin/produtos/${copy.id}`);
 }
 
-export async function setProductStatusAction(ids: number[], status: "active" | "draft" | "archived") {
+// ----------------------------------------------------------------------------- Ações em massa
+
+export type BulkResult = { ok: boolean; message: string };
+
+const idsSchema = z.array(z.number().int().positive()).min(1, "Selecione pelo menos um produto.").max(1000);
+const statusSchema = z.enum(["active", "draft", "archived"]);
+const plural = (n: number, one: string, many: string) => `${n} ${n === 1 ? one : many}`;
+
+export async function bulkSetProductStatusAction(ids: number[], status: "active" | "draft" | "archived"): Promise<BulkResult> {
   await requireAdmin();
-  if (!ids.length) return;
-  await db.update(products).set({ status, updatedAt: new Date() }).where(inArray(products.id, ids));
+  const parsedIds = idsSchema.safeParse(ids);
+  const parsedStatus = statusSchema.safeParse(status);
+  if (!parsedIds.success || !parsedStatus.success) return { ok: false, message: "Seleção inválida." };
+  const rows = await db
+    .update(products)
+    .set({ status: parsedStatus.data, updatedAt: new Date() })
+    .where(inArray(products.id, parsedIds.data))
+    .returning({ id: products.id });
   updateTag("products");
   refresh();
+  const verb = { active: ["ativado", "ativados"], draft: ["movido para rascunho", "movidos para rascunho"], archived: ["arquivado", "arquivados"] }[parsedStatus.data];
+  return { ok: true, message: `${plural(rows.length, "produto", "produtos")} ${rows.length === 1 ? verb[0] : verb[1]}.` };
+}
+
+export async function bulkDeleteProductsAction(ids: number[]): Promise<BulkResult> {
+  await requireAdmin();
+  const parsed = idsSchema.safeParse(ids);
+  if (!parsed.success) return { ok: false, message: "Seleção inválida." };
+  // Pedidos antigos ficam preservados: os itens guardam nome, variação e preço, e o vínculo vira nulo.
+  const rows = await db.delete(products).where(inArray(products.id, parsed.data)).returning({ id: products.id });
+  updateTag("products");
+  refresh();
+  return { ok: true, message: `${plural(rows.length, "produto excluído", "produtos excluídos")}.` };
+}
+
+const centsSchema = z.number().int().min(1).max(100_000_00);
+const bulkEditSchema = z.object({
+  price: z.discriminatedUnion("mode", [
+    z.object({ mode: z.literal("keep") }),
+    z.object({ mode: z.literal("set"), cents: centsSchema.min(MIN_PRICE_CENTS, "Preço mínimo R$ 1,00.") }),
+    z.object({ mode: z.enum(["increase_pct", "decrease_pct"]), value: z.number().gt(0, "Informe a porcentagem.").max(500) }),
+    z.object({ mode: z.enum(["increase_abs", "decrease_abs"]), cents: centsSchema }),
+  ]),
+  roundTo90: z.boolean().default(false),
+  compareAt: z.discriminatedUnion("mode", [
+    z.object({ mode: z.literal("keep") }),
+    z.object({ mode: z.literal("previous") }),
+    z.object({ mode: z.literal("set"), cents: centsSchema }),
+    z.object({ mode: z.literal("clear") }),
+  ]),
+  /** "keep" = não alterar; null = sem categoria. */
+  categoryId: z.union([z.literal("keep"), z.null(), z.number().int().positive()]),
+  addTags: z.array(z.string().trim().min(1).max(40)).max(20).default([]),
+  removeTags: z.array(z.string().trim().min(1).max(40)).max(20).default([]),
+  isNew: z.enum(["keep", "yes", "no"]).default("keep"),
+  isFeatured: z.enum(["keep", "yes", "no"]).default("keep"),
+  status: z.enum(["keep", "active", "draft", "archived"]).default("keep"),
+});
+
+export type BulkEditInput = z.input<typeof bulkEditSchema>;
+
+export async function bulkEditProductsAction(ids: number[], input: BulkEditInput): Promise<BulkResult> {
+  await requireAdmin();
+  const parsedIds = idsSchema.safeParse(ids);
+  if (!parsedIds.success) return { ok: false, message: "Selecione pelo menos um produto." };
+  const parsed = bulkEditSchema.safeParse(input);
+  if (!parsed.success) return { ok: false, message: parsed.error.issues[0]?.message ?? "Dados inválidos." };
+  const c = parsed.data;
+  const addTags = [...new Set(c.addTags.map((t) => t.toUpperCase()))];
+  const removeTags = new Set(c.removeTags.map((t) => t.toUpperCase()));
+  const touchesPrice = c.price.mode !== "keep";
+  const nothing =
+    !touchesPrice &&
+    c.compareAt.mode === "keep" &&
+    c.categoryId === "keep" &&
+    !addTags.length &&
+    !removeTags.size &&
+    c.isNew === "keep" &&
+    c.isFeatured === "keep" &&
+    c.status === "keep";
+  if (nothing) return { ok: false, message: "Escolha pelo menos uma alteração." };
+  if (c.compareAt.mode === "previous" && !touchesPrice) return { ok: false, message: "“Preço atual vira o riscado” só vale junto com uma mudança de preço." };
+  if (typeof c.categoryId === "number") {
+    const cat = await db.query.categories.findFirst({ where: eq(categories.id, c.categoryId), columns: { id: true } });
+    if (!cat) return { ok: false, message: "Categoria não encontrada." };
+  }
+
+  let compareDropped = 0;
+  const count = await db.transaction(async (tx) => {
+    const rows = await tx.query.products.findMany({
+      where: inArray(products.id, parsedIds.data),
+      columns: { id: true, priceCents: true, compareAtCents: true, tags: true },
+      with: { variants: { columns: { id: true, priceCents: true } } },
+    });
+    for (const p of rows) {
+      const newPrice = applyPriceChange(p.priceCents, c.price, c.roundTo90);
+      const compareAt = touchesPrice || c.compareAt.mode !== "keep" ? applyCompareAtChange(p.compareAtCents, p.priceCents, newPrice, c.compareAt) : p.compareAtCents;
+      if (c.compareAt.mode !== "clear" && p.compareAtCents != null && compareAt == null) compareDropped++;
+      let tags = p.tags;
+      if (addTags.length || removeTags.size) tags = [...new Set([...p.tags.filter((t) => !removeTags.has(t.toUpperCase())), ...addTags])];
+      await tx
+        .update(products)
+        .set({
+          priceCents: newPrice,
+          compareAtCents: compareAt,
+          tags,
+          ...(c.categoryId !== "keep" && { categoryId: c.categoryId }),
+          ...(c.isNew !== "keep" && { isNew: c.isNew === "yes" }),
+          ...(c.isFeatured !== "keep" && { isFeatured: c.isFeatured === "yes" }),
+          ...(c.status !== "keep" && { status: c.status }),
+          updatedAt: new Date(),
+        })
+        .where(eq(products.id, p.id));
+      if (touchesPrice) {
+        for (const v of p.variants) {
+          if (v.priceCents == null) continue;
+          await tx
+            .update(variants)
+            .set({ priceCents: applyVariantPriceChange(v.priceCents, p.priceCents, newPrice, c.price, c.roundTo90) })
+            .where(eq(variants.id, v.id));
+        }
+      }
+    }
+    return rows.length;
+  });
+
+  updateTag("products");
+  refresh();
+  const note = compareDropped ? ` O preço riscado saiu de ${plural(compareDropped, "produto", "produtos")} porque não seria maior que o novo preço.` : "";
+  return { ok: true, message: `${plural(count, "produto atualizado", "produtos atualizados")}.${note}` };
 }
 
 // ----------------------------------------------------------------------------- YouDraw
