@@ -16,3 +16,9 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Integrações: `src/lib/infinitepay.ts` (Checkout Integrado) e `src/lib/youdraw.ts` (API Comercial v1, idempotência obrigatória, webhooks HMAC).
 - Banco: Drizzle (`src/db/schema.ts`). Após mudar o schema: `npm run db:generate` e `npm run db:migrate`.
 - Toda server action do painel deve começar com `await requireAdmin()`.
+
+## Estampas e drops
+
+- Qualquer trabalho de estampa (criar, refazer, avaliar, produzir) segue a skill `.claude/skills/estampas-lento/SKILL.md`: briefing, leitura precisa das referências, conceitos, direção de arte, crítica do agente `diretor-de-arte` (`.claude/agents/`) e produção.
+- Ferramentas em `design/tools/` (rode `bash design/tools/setup.sh` no início da sessão). Cada projeto fica em `design/<projeto>/`.
+- Na YouDraw: criar arte e produto só com aprovação do usuário; nunca criar pedidos ou cobranças. A chave é injetada pelo proxy (`Bearer proxy-injected`).

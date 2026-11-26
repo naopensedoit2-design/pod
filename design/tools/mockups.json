@@ -1,0 +1,62 @@
+{
+  "_doc": "Mockups lisos da YouDraw (1000x1000 px) e a geometria medida em cada foto: cx = centro da peça e seam = costura da gola, em px do mockup. cm_per_px converte medidas reais para px do mockup. A posição na YouDraw (placement) usa coordenadas normalizadas 0–1 sobre esse mesmo mockup. Cores sem medição própria copiam a de uma cor irmã (campo geometry_from).",
+  "40": {
+    "label": "Oversized Classic",
+    "catalog_name": "Camiseta Oversized Classic",
+    "cm_per_px": 0.0921,
+    "front_offset_cm": 10.0,
+    "sizes": ["P", "M", "G", "GG", "G1", "G2"],
+    "colors": {
+      "Off-White": {
+        "hex": "#efefdc",
+        "front": { "url": "https://cdn.youdraw.com.br/catalog-uploads/mockups/h6QlMgbUwT2TClA9V5JHHLIoBJQu072GmL2scRI2.png", "cx": 496, "seam": 152 },
+        "back": { "url": "https://cdn.youdraw.com.br/catalog-uploads/mockups/TJOHPSEPlJOFphMcEIYUkMMoSS1E9exKcHmN2p3z.png", "cx": 500, "seam": 79 }
+      },
+      "Preta": {
+        "hex": "#000000",
+        "front": { "url": "https://cdn.youdraw.com.br/catalog-uploads/mockups/jEudGJxnJJuPSH04Eiprtdk4aL5bQTdkROqyDLo8.png", "cx": 494, "seam": 146 },
+        "back": { "url": "https://cdn.youdraw.com.br/catalog-uploads/mockups/TsUedO4prBFmNolimt7LCWxmAoPU2pBmNBxruvKN.png", "cx": 499, "seam": 74 }
+      },
+      "Chocolate": {
+        "hex": "#6a5124",
+        "front": { "url": "https://cdn.youdraw.com.br/catalog-uploads/mockups/K7GDW9NOXfxEa8O1ufohFiW083ZERHrL07EX4EOR.png", "cx": 498, "seam": 155 },
+        "back": { "url": "https://cdn.youdraw.com.br/catalog-uploads/mockups/mAVU23BrIlJQaPjH3FeSslhczWsg6d9oZKaaQ9Xn.png", "cx": 500, "seam": 71 }
+      },
+      "Branca": {
+        "hex": "#ffffff",
+        "geometry_from": "Off-White",
+        "front": { "url": "https://cdn.youdraw.com.br/catalog-uploads/mockups/v6yYuQViCjzue3PqWGEDDl7hGxoPSmOrQA14xd7Q.png", "cx": 496, "seam": 152 },
+        "back": { "url": "https://cdn.youdraw.com.br/catalog-uploads/mockups/cZrZRIlK6w3BV7im3jvl6BW5MiE37AOTnhu38hAx.png", "cx": 500, "seam": 79 }
+      }
+    }
+  },
+  "34": {
+    "label": "Oversized Suedine",
+    "catalog_name": "Camiseta Oversized Suedine 220g",
+    "cm_per_px": 0.08755,
+    "front_offset_cm": 9.5,
+    "sizes": ["PP", "P", "M", "G", "GG", "XG"],
+    "colors": {
+      "Off-White": {
+        "hex": "#fdf6ed",
+        "front": { "url": "https://cdn.youdraw.com.br/catalog-uploads/mockups/8jHEdfYkL2L3ExKlV0lFwlpegrgEOuFqDz8Hl9w5.png", "cx": 499, "seam": 146 },
+        "back": { "url": "https://cdn.youdraw.com.br/catalog-uploads/mockups/z0AGBR321NNnuasVngYq3tB041I5r18k9JDyqPH2.png", "cx": 500, "seam": 90 }
+      },
+      "Preto": {
+        "hex": "#000000",
+        "front": { "url": "https://cdn.youdraw.com.br/catalog-uploads/mockups/lb5K8vzoVbeHlj2cGfsHWmQvgGQRpPblHQoVKd4v.png", "cx": 501, "seam": 146 },
+        "back": { "url": "https://cdn.youdraw.com.br/catalog-uploads/mockups/fO9zHTgpIOnalm3A4hCWnq0lusrXxhqeLygJFoi6.png", "cx": 500, "seam": 90 }
+      },
+      "Marrom": {
+        "hex": "#61443e",
+        "front": { "url": "https://cdn.youdraw.com.br/catalog-uploads/mockups/yPxLzfzTigaAPNeJcq82bVrAvgaghwHa2RSn4AaR.png", "cx": 500, "seam": 147 },
+        "back": { "url": "https://cdn.youdraw.com.br/catalog-uploads/mockups/h0NCdiLS5rzsR14RkV1Cx5IReBT3x6wQbz5umA8l.png", "cx": 497, "seam": 85 }
+      },
+      "Verde Militar": {
+        "hex": "#194d4b",
+        "front": { "url": "https://cdn.youdraw.com.br/catalog-uploads/mockups/Iy7KpMho0KkYmVStj0bOkXDyMb3SBzeVAcuWNtPr.png", "cx": 497, "seam": 142 },
+        "back": { "url": "https://cdn.youdraw.com.br/catalog-uploads/mockups/jbUpEAIOvu1acxMurZQxruusBskZyXSseolAP6IM.png", "cx": 500, "seam": 85 }
+      }
+    }
+  }
+}
