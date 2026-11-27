@@ -1,0 +1,15 @@
+{
+ "prefix": "LENTO C01",
+ "ref_prefix": "lento-c01",
+ "suffix": { "40": " Malha 100% algodão cardado, corte oversized, estampa em DTF de alta definição." },
+ "designs": [
+  { "id": "E02A", "slug": "e02-off", "name": "Camiseta E02 Run Club Off-White", "front": "E02-frente-off.png", "back": "E02-costas-off.png", "colors": { "40": ["Off-White"] }, "desc": "Pista de corrida em vermelho e azul, com o lema \"paz: dá pra conversar\". Departamento de Atletismo do Lento Social Club.", "placement": { "backTop": 8 } },
+  { "id": "E02B", "slug": "e02-preta", "name": "Camiseta E02 Run Club Preta", "front": "E02-frente-preta.png", "back": "E02-costas-preta.png", "colors": { "40": ["Preta"] }, "desc": "Pista de corrida em vermelho e creme, com o lema \"paz: dá pra conversar\". Departamento de Atletismo do Lento Social Club.", "placement": { "backTop": 8 } },
+  { "id": "E03A", "slug": "e03-off", "name": "Camiseta E03 Nothing to Prove Off-White", "front": "E03-frente-off.png", "back": "E03-costas-off.png", "colors": { "40": ["Off-White"] }, "desc": "Nothing to prove. Nowhere to be. A camiseta de quem não tem pressa.", "placement": { "backTop": 8 } },
+  { "id": "E03B", "slug": "e03-preta", "name": "Camiseta E03 Nothing to Prove Preta", "front": "E03-frente-preta.png", "back": "E03-costas-preta.png", "colors": { "40": ["Preta"] }, "desc": "Nothing to prove. Nowhere to be. A camiseta de quem não tem pressa.", "placement": { "backTop": 8 } },
+  { "id": "E07A", "slug": "e07-off", "name": "Camiseta E07 Chess Dept. Off-White", "front": "E07-frente-off.png", "back": "E07-costas-off.png", "colors": { "40": ["Off-White"] }, "desc": "Departamento de Xadrez do Lento Social Club. White to move. No rush.", "placement": { "backTop": 8 } },
+  { "id": "E07B", "slug": "e07-preta", "name": "Camiseta E07 Chess Dept. Preta", "front": "E07-frente-preta.png", "back": "E07-costas-preta.png", "colors": { "40": ["Preta"] }, "desc": "Departamento de Xadrez do Lento Social Club. White to move. No rush.", "placement": { "backTop": 8 } },
+  { "id": "TL", "slug": "torra-lenta", "name": "Camiseta Torra Lenta", "front": "TL-frente.png", "back": "TL-costas.png", "colors": { "40": ["Branca", "Preta"] }, "desc": "Café do Clube, lote nº 001. Ramo de cafeeiro em ilustração botânica e a frase \"Notas de chocolate, caramelo e preguiça.\"", "placement": { "backTop": 8 } },
+  { "id": "MR", "slug": "manga-rosa", "name": "Camiseta Manga Rosa", "back": "MR-costas.png", "colors": { "40": ["Branca", "Off-White"] }, "desc": "Manga Rosa em ilustração botânica colorida à mão. Costas estampadas, frente lisa.", "placement": { "backTop": 8 } }
+ ]
+}
