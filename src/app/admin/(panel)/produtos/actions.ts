@@ -345,8 +345,10 @@ function variantsFromYd(yd: YdProduct) {
     }));
 }
 
-export async function importYouDrawProductAction(ydId: string): Promise<{ ok: false; error: string } | void> {
-  await requireAdmin();
+type ImportResult = { ok: false; error: string } | { ok: true; id: number; existing: boolean };
+
+/** Importa um produto da YouDraw (sem checar sessão nem redirecionar): usada pela importação individual e pela em massa. */
+async function importOne(ydId: string, priceCentsOverride?: number): Promise<ImportResult> {
   let yd: YdProduct;
   try {
     yd = await youdraw.getProduct(ydId);
@@ -354,13 +356,13 @@ export async function importYouDrawProductAction(ydId: string): Promise<{ ok: fa
     return { ok: false, error: err instanceof YouDrawError ? err.describe() : (err as Error).message };
   }
   const existing = await db.query.products.findFirst({ where: eq(products.ydProductId, yd.id), columns: { id: true } });
-  if (existing) redirect(`/admin/produtos/${existing.id}`);
+  if (existing) return { ok: true, id: existing.id, existing: true };
 
   const settings = await getSettingsFresh();
   const vs = variantsFromYd(yd);
   if (!vs.length) return { ok: false, error: "Este produto ainda não tem variações com SKU na YouDraw (a composição pode estar em andamento)." };
   const maxCost = Math.max(...vs.map((v) => v.productionCostCents ?? 0));
-  const price = maxCost > 0 ? roundPrice(maxCost * settings.integrations.defaultMarkup) : 9990;
+  const price = priceCentsOverride ?? (maxCost > 0 ? roundPrice(maxCost * settings.integrations.defaultMarkup) : 9990);
 
   const slug = await uniqueSlug(yd.name);
   const [prod] = await db
@@ -401,7 +403,7 @@ export async function importYouDrawProductAction(ydId: string): Promise<{ ok: fa
     );
     await db.insert(dataPatches).values({ id: photos.patchId }).onConflictDoNothing();
     updateTag("products");
-    redirect(`/admin/produtos/${prod.id}?importado=1`);
+    return { ok: true, id: prod.id, existing: false };
   }
 
   // Imagens: uma leva por cor (mockups da variante) + fotos gerais do produto.
@@ -426,7 +428,52 @@ export async function importYouDrawProductAction(ydId: string): Promise<{ ok: fa
     }
   }
   updateTag("products");
-  redirect(`/admin/produtos/${prod.id}?importado=1`);
+  return { ok: true, id: prod.id, existing: false };
+}
+
+export async function importYouDrawProductAction(ydId: string): Promise<{ ok: false; error: string } | void> {
+  await requireAdmin();
+  const r = await importOne(ydId);
+  if (!r.ok) return r;
+  redirect(r.existing ? `/admin/produtos/${r.id}` : `/admin/produtos/${r.id}?importado=1`);
+}
+
+export type ImportAllResult = { imported: string[]; skipped: string[]; failed: { name: string; error: string }[] };
+
+/**
+ * Importa de uma vez todos os produtos da YouDraw que ainda não estão na loja.
+ * Pula os que já foram importados e os que ainda estão gerando mockup (sem foto), que ficam para a próxima rodada.
+ * priceCents: preço único para todos (opcional; sem ele vale custo × multiplicador). publish: já deixa ativos (padrão: rascunho).
+ */
+export async function importAllYouDrawProductsAction(input: { priceCents?: number | null; publish?: boolean }): Promise<ImportAllResult> {
+  await requireAdmin();
+  const out: ImportAllResult = { imported: [], skipped: [], failed: [] };
+  const price = input.priceCents && input.priceCents >= MIN_PRICE_CENTS ? Math.round(input.priceCents) : undefined;
+  const have = await db.select({ yd: products.ydProductId }).from(products);
+  const done = new Set(have.map((r) => r.yd).filter(Boolean));
+  const all: YdProduct[] = [];
+  try {
+    for (let page = 1; page <= 20; page++) {
+      const res = await youdraw.listProducts({ page, perPage: 100 });
+      all.push(...res.data);
+      if (!res.meta || page >= res.meta.last_page) break;
+    }
+  } catch (err) {
+    out.failed.push({ name: "Lista da YouDraw", error: err instanceof YouDrawError ? err.describe() : (err as Error).message });
+    return out;
+  }
+  for (const p of all) {
+    if (done.has(p.id)) continue;
+    if (p.status?.toLowerCase() !== "ativo") { out.skipped.push(`${p.name} (inativo na YouDraw)`); continue; }
+    if (p.media && p.media.status !== "ready") { out.skipped.push(`${p.name} (mockup: ${p.media.status})`); continue; }
+    const r = await importOne(p.id, price);
+    if (!r.ok) { out.failed.push({ name: p.name, error: r.error }); continue; }
+    if (input.publish) await db.update(products).set({ status: "active" }).where(eq(products.id, r.id));
+    out.imported.push(p.name);
+  }
+  updateTag("products");
+  refresh();
+  return out;
 }
 
 export async function syncYouDrawProductAction(productId: number): Promise<{ ok: boolean; message: string }> {

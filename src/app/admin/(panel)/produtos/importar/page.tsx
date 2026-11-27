@@ -6,6 +6,7 @@ import { products } from "@/db/schema";
 import { EmptyState, LinkButton, Notice, PageHeader, Pill, inputClass } from "@/components/admin/ui";
 import { formatBRL } from "@/lib/format";
 import { isYouDrawConfigured, youdraw, YouDrawError, type YdProduct } from "@/lib/youdraw";
+import { ImportAll } from "./import-all";
 import { ImportButton } from "./import-button";
 
 export const metadata: Metadata = { title: "Importar da YouDraw" };
@@ -48,6 +49,7 @@ export default async function ImportPage({ searchParams }: PageProps<"/admin/pro
         description="Produtos que você já criou na sua conta YouDraw. A importação traz variações, SKUs, custos e mockups."
         actions={<LinkButton href="/admin/produtos" variant="secondary" size="sm">← Produtos</LinkButton>}
       />
+      <ImportAll />
       <form className="mb-4 max-w-sm">
         <input name="q" defaultValue={q} placeholder="Buscar na YouDraw…" className={inputClass} />
       </form>
