@@ -39,6 +39,34 @@ async function applyProductPhotos(sql) {
   }
 }
 
+/**
+ * Correções de dados de produtos da YouDraw (src/data/product-fixes.json): descrição e nome/bolinha de cor.
+ * Cada versão vale uma única vez por produto (tabela data_patches), então edições futuras no painel não são sobrescritas.
+ */
+async function applyProductFixes(sql) {
+  const manifest = JSON.parse(readFileSync(new URL("../src/data/product-fixes.json", import.meta.url), "utf8"));
+  for (const [ydId, entry] of Object.entries(manifest)) {
+    if (ydId.startsWith("_")) continue;
+    const patchId = `product-fix:${ydId}:${entry.version}`;
+    const [done] = await sql`select 1 from data_patches where id = ${patchId}`;
+    if (done) continue;
+    const prods = await sql`select id from products where yd_product_id = ${ydId}`;
+    if (!prods.length) continue; // ainda não importado
+    await sql.begin(async (tx) => {
+      for (const { id } of prods) {
+        if (entry.description) await tx`update products set description = ${entry.description}, updated_at = now() where id = ${id}`;
+        if (entry.renameColor) {
+          const { from, to, hex } = entry.renameColor;
+          await tx`update variants set option1 = ${to}, option1_hex = ${hex} where product_id = ${id} and option1 = ${from}`;
+          await tx`update product_images set color = ${to} where product_id = ${id} and color = ${from}`;
+        }
+      }
+      await tx`insert into data_patches (id) values (${patchId}) on conflict do nothing`;
+    });
+    console.log(`[migrate] correções aplicadas ao produto da YouDraw ${ydId} (${prods.length} na loja).`);
+  }
+}
+
 config({ path: [".env.local", ".env"], quiet: true });
 
 const url = process.env.DATABASE_URL;
@@ -62,6 +90,7 @@ try {
     console.log(`[migrate] banco novo: dados iniciais criados${withDemo ? " (com produtos de demonstração)" : ""}.`);
   }
   await applyProductPhotos(sql);
+  await applyProductFixes(sql);
 } catch (err) {
   console.error("[migrate] falhou:", err);
   process.exitCode = 1;

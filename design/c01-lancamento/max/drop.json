@@ -1,0 +1,138 @@
+{
+ "prefix": "LENTO C01 MAX",
+ "ref_prefix": "lento-c01",
+ "suffix": {},
+ "designs": [
+  {
+   "id": "E02A",
+   "slug": "e02-off-max",
+   "name": "Camiseta E02 Run Club Off-White",
+   "front": "E02-frente-off.png",
+   "back": "E02-costas-off.png",
+   "colors": {
+    "40": [
+     "Off-White"
+    ]
+   },
+   "desc": "Edição limitada.\n\nCamiseta oversized em malha 100% algodão cardado (fio 24.1), densa e que não amassa fácil.\nCorte oversized com caimento reto e gola careca reforçada.\nEstampa em DTF nas costas e no peito, com cor viva e detalhe que aguenta lavagem.",
+   "placement": {
+    "backTop": 8
+   }
+  },
+  {
+   "id": "E02B",
+   "slug": "e02-preta-max",
+   "name": "Camiseta E02 Run Club Preta",
+   "front": "E02-frente-preta.png",
+   "back": "E02-costas-preta.png",
+   "colors": {
+    "40": [
+     "Preta"
+    ]
+   },
+   "desc": "Edição limitada.\n\nCamiseta oversized em malha 100% algodão cardado (fio 24.1), densa e que não amassa fácil.\nCorte oversized com caimento reto e gola careca reforçada.\nEstampa em DTF nas costas e no peito, com cor viva e detalhe que aguenta lavagem.",
+   "placement": {
+    "backTop": 8
+   }
+  },
+  {
+   "id": "E03A",
+   "slug": "e03-off-max",
+   "name": "Camiseta E03 Nothing to Prove Off-White",
+   "front": "E03-frente-off.png",
+   "back": "E03-costas-off.png",
+   "colors": {
+    "40": [
+     "Off-White"
+    ]
+   },
+   "desc": "Edição limitada.\n\nCamiseta oversized em malha 100% algodão cardado (fio 24.1), densa e que não amassa fácil.\nCorte oversized com caimento reto e gola careca reforçada.\nEstampa em DTF nas costas e no peito, com cor viva e detalhe que aguenta lavagem.",
+   "placement": {
+    "backTop": 8
+   }
+  },
+  {
+   "id": "E03B",
+   "slug": "e03-preta-max",
+   "name": "Camiseta E03 Nothing to Prove Preta",
+   "front": "E03-frente-preta.png",
+   "back": "E03-costas-preta.png",
+   "colors": {
+    "40": [
+     "Preta"
+    ]
+   },
+   "desc": "Edição limitada.\n\nCamiseta oversized em malha 100% algodão cardado (fio 24.1), densa e que não amassa fácil.\nCorte oversized com caimento reto e gola careca reforçada.\nEstampa em DTF nas costas e no peito, com cor viva e detalhe que aguenta lavagem.",
+   "placement": {
+    "backTop": 8
+   }
+  },
+  {
+   "id": "E07A",
+   "slug": "e07-off-max",
+   "name": "Camiseta E07 Chess Dept. Off-White",
+   "front": "E07-frente-off.png",
+   "back": "E07-costas-off.png",
+   "colors": {
+    "40": [
+     "Off-White"
+    ]
+   },
+   "desc": "Edição limitada.\n\nCamiseta oversized em malha 100% algodão cardado (fio 24.1), densa e que não amassa fácil.\nCorte oversized com caimento reto e gola careca reforçada.\nEstampa em DTF nas costas e no peito, com cor viva e detalhe que aguenta lavagem.",
+   "placement": {
+    "backTop": 8
+   }
+  },
+  {
+   "id": "E07B",
+   "slug": "e07-preta-max",
+   "name": "Camiseta E07 Chess Dept. Preta",
+   "front": "E07-frente-preta.png",
+   "back": "E07-costas-preta.png",
+   "colors": {
+    "40": [
+     "Preta"
+    ]
+   },
+   "desc": "Edição limitada.\n\nCamiseta oversized em malha 100% algodão cardado (fio 24.1), densa e que não amassa fácil.\nCorte oversized com caimento reto e gola careca reforçada.\nEstampa em DTF nas costas e no peito, com cor viva e detalhe que aguenta lavagem.",
+   "placement": {
+    "backTop": 8
+   }
+  },
+  {
+   "id": "TL",
+   "slug": "torra-lenta-max",
+   "name": "Camiseta Torra Lenta",
+   "front": "TL-frente.png",
+   "back": "TL-costas.png",
+   "colors": {
+    "17": [
+     "Azul Marinho",
+     "Preta",
+     "Off-White"
+    ]
+   },
+   "desc": "Edição limitada.\n\nCamiseta oversized em malha de 220 g (96% algodão e 4% elastano), com peso e estrutura sem perder a maciez.\nGola estruturada e caimento oversized moderno.\nEstampa em DTF nas costas e no peito, com cor viva e detalhe que aguenta lavagem.",
+   "placement": {
+    "backTop": 8
+   }
+  },
+  {
+   "id": "MR",
+   "slug": "manga-rosa-max",
+   "name": "Camiseta Manga Rosa",
+   "front": "MR2-frente.png",
+   "back": "MR2-costas.png",
+   "colors": {
+    "40": [
+     "Branca",
+     "Off-White"
+    ]
+   },
+   "desc": "Edição limitada.\n\nCamiseta oversized em malha 100% algodão cardado (fio 24.1), densa e que não amassa fácil.\nCorte oversized com caimento reto e gola careca reforçada.\nEstampa em DTF nas costas e no peito, com cor viva e detalhe que aguenta lavagem.",
+   "placement": {
+    "backTop": 8
+   }
+  }
+ ]
+}

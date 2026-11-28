@@ -1,0 +1,57 @@
+{
+ "_doc": "Correções de dados aplicadas uma única vez por produto da YouDraw (scripts/migrate.mjs). Descrição só com as informações da peça; renameColor ajusta o nome e a bolinha da cor.",
+ "e2354630-30dc-4d79-8aa7-9ea3dd93c2b7": {
+  "version": "1",
+  "description": "Edição limitada.\n\nCamiseta oversized em malha 100% algodão cardado (fio 24.1), densa e que não amassa fácil.\nCorte oversized com caimento reto e gola careca reforçada.\nEstampa em DTF nas costas e no peito, com cor viva e detalhe que aguenta lavagem."
+ },
+ "91ee8753-3b01-43f4-a8b1-cc23b0074944": {
+  "version": "1",
+  "description": "Edição limitada.\n\nCamiseta oversized em malha 100% algodão cardado (fio 24.1), densa e que não amassa fácil.\nCorte oversized com caimento reto e gola careca reforçada.\nEstampa em DTF nas costas e no peito, com cor viva e detalhe que aguenta lavagem."
+ },
+ "85dc397e-51d7-4e62-88fd-5d177a84b1fc": {
+  "version": "1",
+  "description": "Edição limitada.\n\nCamiseta oversized em malha 100% algodão cardado (fio 24.1), densa e que não amassa fácil.\nCorte oversized com caimento reto e gola careca reforçada.\nEstampa em DTF nas costas e no peito, com cor viva e detalhe que aguenta lavagem."
+ },
+ "569b7b52-e56a-41bc-908b-94674594f947": {
+  "version": "1",
+  "description": "Edição limitada.\n\nCamiseta oversized em malha 100% algodão cardado (fio 24.1), densa e que não amassa fácil.\nCorte oversized com caimento reto e gola careca reforçada.\nEstampa em DTF nas costas e no peito, com cor viva e detalhe que aguenta lavagem."
+ },
+ "7e4a45fc-74c9-4c96-9259-c9a36fe9bbec": {
+  "version": "1",
+  "description": "Edição limitada.\n\nCamiseta oversized em malha 100% algodão cardado (fio 24.1), densa e que não amassa fácil.\nCorte oversized com caimento reto e gola careca reforçada.\nEstampa em DTF nas costas e no peito, com cor viva e detalhe que aguenta lavagem."
+ },
+ "b1e86dc9-bef2-4582-951b-a50e57824111": {
+  "version": "1",
+  "description": "Edição limitada.\n\nCamiseta oversized em malha 100% algodão cardado (fio 24.1), densa e que não amassa fácil.\nCorte oversized com caimento reto e gola careca reforçada.\nEstampa em DTF nas costas e no peito, com cor viva e detalhe que aguenta lavagem."
+ },
+ "24eebdc7-34b0-4f69-b3b4-12134b27b6d7": {
+  "version": "1",
+  "description": "Edição limitada.\n\nCamiseta oversized em malha 100% algodão cardado (fio 24.1), densa e que não amassa fácil.\nCorte oversized com caimento reto e gola careca reforçada.\nEstampa em DTF nas costas e no peito, com cor viva e detalhe que aguenta lavagem."
+ },
+ "77c69602-6daa-4a5a-9627-1d58465e0a2d": {
+  "version": "1",
+  "description": "Edição limitada.\n\nCamiseta oversized em malha 100% algodão cardado (fio 24.1), densa e que não amassa fácil.\nCorte oversized com caimento reto e gola careca reforçada.\nEstampa em DTF nas costas e no peito, com cor viva e detalhe que aguenta lavagem."
+ },
+ "d52bf3f0-d98b-4193-ad01-aee246d9c9be": {
+  "version": "1",
+  "description": "Edição limitada.\n\nCamiseta oversized em malha de 220 g (96% algodão e 4% elastano), com peso e estrutura sem perder a maciez.\nGola estruturada e caimento oversized moderno.\nEstampa em DTF nas costas e no peito, com cor viva e detalhe que aguenta lavagem."
+ },
+ "eb53a898-6868-4f0b-b2ad-5958ef8b6567": {
+  "version": "1",
+  "description": "Edição limitada.\n\nCamiseta oversized em Suedine premium de 220 g, a malha mais encorpada da linha, com toque macio desde a primeira lavagem.\nModelagem oversized, com corte largo que mantém a forma.\nEstampa em DTF nas costas e no peito, com cor viva e detalhe que aguenta lavagem.",
+  "renameColor": {
+   "from": "Off-White",
+   "to": "Branco Gelo",
+   "hex": "#fdf6ed"
+  }
+ },
+ "f92df304-66cf-4aeb-b40d-fd32b007c17f": {
+  "version": "1",
+  "description": "Edição limitada.\n\nCamiseta oversized em Suedine premium de 220 g, a malha mais encorpada da linha, com toque macio desde a primeira lavagem.\nModelagem oversized, com corte largo que mantém a forma.\nEstampa em DTF nas costas e no peito, com cor viva e detalhe que aguenta lavagem.",
+  "renameColor": {
+   "from": "Off-White",
+   "to": "Branco Gelo",
+   "hex": "#fdf6ed"
+  }
+ }
+}
